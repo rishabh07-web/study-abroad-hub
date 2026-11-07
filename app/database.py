@@ -106,6 +106,89 @@ def insert_sample_data():
 
     print("University records inserted successfully!")
 
+
+def insert_sample_programs():
+
+    connection = create_connection()
+
+    programs = [
+        (
+            "University of Toronto",
+            "Computer Science",
+            "Bachelor's",
+            "Computer Science",
+            45000,
+            "4 years",
+            7.0,
+            6.5
+        ),
+        (
+            "University of Toronto",
+            "Data Science",
+            "Master's",
+            "Data Science",
+            50000,
+            "2 years",
+            7.5,
+            7.0
+        ),
+        (
+            "University of Manchester",
+            "Artificial Intelligence",
+            "Master's",
+            "Artificial Intelligence",
+            35000,
+            "1 year",
+            7.0,
+            6.5
+        )
+    ]
+
+    for program in programs:
+
+        university = connection.execute(
+            "SELECT university_id FROM UNIVERSITY WHERE name = ?",
+            (program[0],)
+        ).fetchone()
+
+        if university is None:
+            continue
+
+        connection.execute("""
+            INSERT OR IGNORE INTO PROGRAM
+            (
+                university_id,
+                name,
+                degree,
+                field,
+                tuition,
+                duration,
+                min_cgpa,
+                min_ielts
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        """, (university["university_id"], *program[1:]))
+
+    connection.commit()
+    connection.close()
+
+    print("Programme records inserted successfully!")
+
+
+def get_universities():
+
+    connection = create_connection()
+
+    universities = connection.execute(
+        "SELECT * FROM UNIVERSITY"
+    ).fetchall()
+
+    connection.close()
+
+    return universities
+
 if __name__ == "__main__":
+
     create_tables()
     insert_sample_data()
+    insert_sample_programs()
