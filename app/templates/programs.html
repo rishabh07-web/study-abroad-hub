@@ -1,90 +1,147 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Explore Programs - Study Abroad Hub</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
 </head>
+
 <body>
 
-    <h1>Explore Study Programs</h1>
+    <!-- Navigation Bar -->
+    <header>
+        <h1>Study Abroad Hub</h1>
+        <p>Find the right academic program for your future.</p>
 
-    <!-- Search and Filter Form -->
-    <form action="{{ url_for('programs_page') }}" method="GET">
+        <nav>
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('programs_page') }}">Explore Programs</a>
+        </nav>
+    </header>
 
-        <input
-            type="text"
-            name="search"
-            placeholder="Search program name..."
-            value="{{ search }}"
-        >
+    <!-- Main Content -->
+    <div class="page-container">
 
-        <select name="country">
-            <option value="">All Countries</option>
+        <h2>Explore Study Programs</h2>
 
-            <option value="Canada"
-                {% if country == "Canada" %}selected{% endif %}>
-                Canada
-            </option>
+        <p>Search and filter programs according to your preferences.</p>
 
-            <option value="United Kingdom"
-                {% if country == "United Kingdom" %}selected{% endif %}>
-                United Kingdom
-            </option>
-        </select>
+        <!-- Search and Filter Form -->
+        <form action="{{ url_for('programs_page') }}"
+              method="GET"
+              class="search-form">
 
-        <select name="degree">
-            <option value="">All Degrees</option>
+            <input
+                type="text"
+                name="search"
+                placeholder="Search program name..."
+                value="{{ search }}"
+            >
 
-            <option value="Bachelor's"
-                {% if degree == "Bachelor's" %}selected{% endif %}>
-                Bachelor's
-            </option>
+            <select name="country">
+                <option value="">All Countries</option>
 
-            <option value="Master's"
-                {% if degree == "Master's" %}selected{% endif %}>
-                Master's
-            </option>
-        </select>
+                <option value="Canada"
+                    {% if country == "Canada" %}selected{% endif %}>
+                    Canada
+                </option>
 
-        <button type="submit">Search</button>
+                <option value="United Kingdom"
+                    {% if country == "United Kingdom" %}selected{% endif %}>
+                    United Kingdom
+                </option>
+            </select>
 
-        <a href="{{ url_for('programs_page') }}">Clear Filters</a>
+            <select name="degree">
+                <option value="">All Degrees</option>
 
-    </form>
+                <option value="Bachelor's"
+                    {% if degree == "Bachelor's" %}selected{% endif %}>
+                    Bachelor's
+                </option>
 
-    <hr>
+                <option value="Master's"
+                    {% if degree == "Master's" %}selected{% endif %}>
+                    Master's
+                </option>
+            </select>
 
-    <!-- Display Programs -->
-    <h2>Available Programs</h2>
+            <button type="submit">Search</button>
 
-    {% if programs %}
+            <a href="{{ url_for('programs_page') }}"
+               class="clear-link">
+                Clear Filters
+            </a>
 
-        {% for program in programs %}
+        </form>
 
-            <div>
-                <h3>{{ program["program_name"] }}</h3>
+        <!-- Program Results -->
+        <h2>Available Programs</h2>
 
-                <p>University: {{ program["university_name"] }}</p>
-                <p>Country: {{ program["country"] }}</p>
-                <p>Degree: {{ program["degree"] }}</p>
-                <p>Field: {{ program["field"] }}</p>
-                <p>Duration: {{ program["duration"] }}</p>
-                <p>Tuition: {{ program["tuition"] }}</p>
+        {% if programs %}
+
+            <div class="program-list">
+
+                {% for program in programs %}
+
+                    <div class="program-card">
+
+                        <h3>{{ program["program_name"] }}</h3>
+
+                        <p>
+                            <strong>University:</strong>
+                            {{ program["university_name"] }}
+                        </p>
+
+                        <p>
+                            <strong>Country:</strong>
+                            {{ program["country"] }}
+                        </p>
+
+                        <p>
+                            <strong>Degree:</strong>
+                            {{ program["degree"] }}
+                        </p>
+
+                        <p>
+                            <strong>Field:</strong>
+                            {{ program["field"] }}
+                        </p>
+
+                        <p>
+                            <strong>Duration:</strong>
+                            {{ program["duration"] }}
+                        </p>
+
+                        <p>
+                            <strong>Tuition:</strong>
+                            {{ program["tuition"] }}
+                        </p>
+
+                    </div>
+
+                {% endfor %}
+
             </div>
 
-            <hr>
+        {% else %}
 
-        {% endfor %}
+            <p>No programs found. Try changing your search or filters.</p>
 
-    {% else %}
+        {% endif %}
 
-        <p>No programs found. Try changing your search or filters.</p>
+    </div>
 
-    {% endif %}
-
-    <a href="{{ url_for('home') }}">Back to Home</a>
+    <!-- Footer -->
+    <footer>
+        <p>Study Abroad Hub | Student Decision Support System</p>
+    </footer>
 
 </body>
 </html>

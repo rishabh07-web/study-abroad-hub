@@ -1,9 +1,11 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Study Abroad Hub</title>
 
     <link rel="stylesheet"
@@ -11,25 +13,39 @@
 </head>
 
 <body>
+
+    <!-- Navigation Bar -->
     <header>
         <h1>Study Abroad Hub</h1>
         <p>Your journey towards international education starts here.</p>
+
+        <nav>
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('programs_page') }}">Explore Programs</a>
+        </nav>
     </header>
 
+    <!-- Hero Section -->
     <main>
+
         <h2>Explore Your Study Abroad Opportunities</h2>
+
         <p>
-            Discover universities, explore programs,
+            Discover universities, explore academic programs,
             compare options and check your eligibility.
         </p>
 
-        <a href="/programs">
-    <button>Explore Programs</button>
-</a>
+        <a href="{{ url_for('programs_page') }}" class="btn">
+            Explore Programs
+        </a>
+
     </main>
 
+    <!-- Footer -->
     <footer>
         <p>Study Abroad Hub | Student Decision Support System</p>
+        <p>Helping students make informed international education decisions.</p>
     </footer>
+
 </body>
 </html>

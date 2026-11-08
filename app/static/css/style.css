@@ -1,51 +1,176 @@
 
+/* 1. Global Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* 2. General Page Styling */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f6f9;
+    background-color: #f4f7fb;
     color: #222;
+    line-height: 1.6;
 }
 
+/* 3. Header */
 header {
     background-color: #173b63;
     color: white;
     text-align: center;
-    padding: 35px 20px;
+    padding: 30px 20px;
 }
 
 header h1 {
-    margin-bottom: 10px;
+    font-size: 30px;
+    margin-bottom: 8px;
 }
 
+header p {
+    color: #dce8f5;
+}
+
+/* 4. Main Content */
 main {
+    max-width: 1100px;
+    margin: auto;
+    padding: 70px 25px;
     text-align: center;
-    padding: 80px 20px;
 }
 
 main h2 {
+    font-size: 30px;
     margin-bottom: 15px;
+    color: #173b63;
 }
 
 main p {
     margin-bottom: 25px;
+    color: #555;
 }
 
-button {
+/* 5. Buttons and Links */
+button,
+.btn {
+    display: inline-block;
     background-color: #173b63;
     color: white;
     padding: 12px 24px;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 15px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
+button:hover,
+.btn:hover {
+    background-color: #24578b;
+}
+
+/* 6. Explore Programs Page */
+.page-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.search-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    background-color: white;
+    padding: 22px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+    margin: 25px 0;
+}
+
+.search-form input,
+.search-form select {
+    flex: 1;
+    min-width: 160px;
+    padding: 12px;
+    border: 1px solid #ccd5df;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.clear-link {
+    display: inline-flex;
+    align-items: center;
+    color: #173b63;
+    text-decoration: none;
+    padding: 10px;
+}
+
+.clear-link:hover {
+    text-decoration: underline;
+}
+
+/* 7. Program Cards */
+.program-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 22px;
+    margin-top: 25px;
+}
+
+.program-card {
+    background-color: white;
+    padding: 22px;
+    border-radius: 10px;
+    border: 1px solid #e1e7ef;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+}
+
+.program-card:hover {
+    transform: translateY(-4px);
+}
+
+.program-card h3 {
+    color: #173b63;
+    margin-bottom: 12px;
+}
+
+.program-card p {
+    color: #555;
+    margin-bottom: 7px;
+}
+
+/* 8. Footer */
 footer {
     text-align: center;
-    padding: 20px;
+    padding: 22px;
     background-color: #e3e8ef;
+    color: #444;
+    margin-top: 50px;
+}
+
+/* 9. Mobile Responsiveness */
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 24px;
+    }
+
+    main {
+        padding: 45px 18px;
+    }
+
+    main h2 {
+        font-size: 24px;
+    }
+
+    .search-form {
+        flex-direction: column;
+    }
+
+    .search-form input,
+    .search-form select,
+    .search-form button {
+        width: 100%;
+    }
 }
