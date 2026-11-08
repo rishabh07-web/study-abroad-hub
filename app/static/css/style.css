@@ -174,3 +174,33 @@ footer {
         width: 100%;
     }
 }
+
+
+/* Eligibility Checker */
+
+.search-form label {
+    display: block;
+    width: 100%;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.eligible {
+    color: #16803c;
+    font-weight: bold;
+}
+
+.not-eligible {
+    color: #d62828;
+    font-weight: bold;
+}
+
+.program-card hr {
+    margin: 20px 0;
+    border: none;
+    border-top: 1px solid #ddd;
+}
+
+.program-card h3 {
+    margin-bottom: 15px;
+}
