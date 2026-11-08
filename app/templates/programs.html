@@ -10,17 +10,79 @@
 
     <h1>Explore Study Programs</h1>
 
-    {% for program in programs %}
-        <div>
-            <h2>{{ program["program_name"] }}</h2>
-            <p>University: {{ program["university_name"] }}</p>
-            <p>Country: {{ program["country"] }}</p>
-            <p>Degree: {{ program["degree"] }}</p>
-            <p>Duration: {{ program["duration"] }}</p>
-            <p>Tuition: {{ program["tuition"] }}</p>
-        </div>
-        <hr>
-    {% endfor %}
+    <!-- Search and Filter Form -->
+    <form action="{{ url_for('programs_page') }}" method="GET">
+
+        <input
+            type="text"
+            name="search"
+            placeholder="Search program name..."
+            value="{{ search }}"
+        >
+
+        <select name="country">
+            <option value="">All Countries</option>
+
+            <option value="Canada"
+                {% if country == "Canada" %}selected{% endif %}>
+                Canada
+            </option>
+
+            <option value="United Kingdom"
+                {% if country == "United Kingdom" %}selected{% endif %}>
+                United Kingdom
+            </option>
+        </select>
+
+        <select name="degree">
+            <option value="">All Degrees</option>
+
+            <option value="Bachelor's"
+                {% if degree == "Bachelor's" %}selected{% endif %}>
+                Bachelor's
+            </option>
+
+            <option value="Master's"
+                {% if degree == "Master's" %}selected{% endif %}>
+                Master's
+            </option>
+        </select>
+
+        <button type="submit">Search</button>
+
+        <a href="{{ url_for('programs_page') }}">Clear Filters</a>
+
+    </form>
+
+    <hr>
+
+    <!-- Display Programs -->
+    <h2>Available Programs</h2>
+
+    {% if programs %}
+
+        {% for program in programs %}
+
+            <div>
+                <h3>{{ program["program_name"] }}</h3>
+
+                <p>University: {{ program["university_name"] }}</p>
+                <p>Country: {{ program["country"] }}</p>
+                <p>Degree: {{ program["degree"] }}</p>
+                <p>Field: {{ program["field"] }}</p>
+                <p>Duration: {{ program["duration"] }}</p>
+                <p>Tuition: {{ program["tuition"] }}</p>
+            </div>
+
+            <hr>
+
+        {% endfor %}
+
+    {% else %}
+
+        <p>No programs found. Try changing your search or filters.</p>
+
+    {% endif %}
 
     <a href="{{ url_for('home') }}">Back to Home</a>
 

@@ -187,8 +187,98 @@ def get_universities():
 
     return universities
 
+def get_programs_with_university():
+
+    connection = create_connection()
+
+    programs = connection.execute("""
+
+        SELECT
+            PROGRAM.program_id,
+            PROGRAM.name AS program_name,
+            PROGRAM.degree,
+            PROGRAM.field,
+            PROGRAM.tuition,
+            PROGRAM.duration,
+
+            UNIVERSITY.name AS university_name,
+            UNIVERSITY.country,
+            UNIVERSITY.city
+
+        FROM PROGRAM
+
+        INNER JOIN UNIVERSITY
+
+        ON PROGRAM.university_id = UNIVERSITY.university_id
+
+    """).fetchall()
+
+    connection.close()
+
+    return programs
+
+
+
+def search_programs(search="", country="", degree=""):
+    connection = create_connection()
+
+    query = """
+        SELECT
+            PROGRAM.program_id,
+            PROGRAM.name AS program_name,
+            PROGRAM.degree,
+            PROGRAM.field,
+            PROGRAM.tuition,
+            PROGRAM.duration,
+            UNIVERSITY.name AS university_name,
+            UNIVERSITY.country,
+            UNIVERSITY.city
+        FROM PROGRAM
+        INNER JOIN UNIVERSITY
+        ON PROGRAM.university_id = UNIVERSITY.university_id
+        WHERE 1=1
+    """
+
+    parameters = []
+
+    if search:
+        query += " AND PROGRAM.name LIKE ?"
+        parameters.append("%" + search + "%")
+
+    if country:
+        query += " AND UNIVERSITY.country = ?"
+        parameters.append(country)
+
+    if degree:
+        query += " AND PROGRAM.degree = ?"
+        parameters.append(degree)
+
+    programs = connection.execute(
+        query, parameters
+    ).fetchall()
+
+    connection.close()
+
+    return programs
+
+
+
 if __name__ == "__main__":
 
     create_tables()
     insert_sample_data()
     insert_sample_programs()
+
+    programs = get_programs_with_university()
+
+    for program in programs:
+
+        print(
+            program["program_name"],
+            "|",
+            program["university_name"],
+            "|",
+            program["country"],
+            "|",
+            program["degree"]
+        )
