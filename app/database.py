@@ -263,24 +263,67 @@ def search_programs(search="", country="", degree=""):
 
 
 def get_program_by_id(program_id):
+
     connection = create_connection()
 
     program = connection.execute("""
         SELECT
             PROGRAM.program_id,
             PROGRAM.name AS program_name,
+            PROGRAM.degree,
+            PROGRAM.field,
+            PROGRAM.tuition,
+            PROGRAM.duration,
             PROGRAM.min_cgpa,
             PROGRAM.min_ielts,
-            UNIVERSITY.name AS university_name
+            UNIVERSITY.name AS university_name,
+            UNIVERSITY.country,
+            UNIVERSITY.city
+
         FROM PROGRAM
+
         INNER JOIN UNIVERSITY
+
         ON PROGRAM.university_id = UNIVERSITY.university_id
+
         WHERE PROGRAM.program_id = ?
+
     """, (program_id,)).fetchone()
 
     connection.close()
 
     return program
+
+
+def get_programs_for_comparison():
+
+    connection = create_connection()
+
+    programs = connection.execute("""
+        SELECT
+            PROGRAM.program_id,
+            PROGRAM.name AS program_name,
+            PROGRAM.degree,
+            PROGRAM.field,
+            PROGRAM.tuition,
+            PROGRAM.duration,
+            PROGRAM.min_cgpa,
+            PROGRAM.min_ielts,
+            UNIVERSITY.name AS university_name,
+            UNIVERSITY.country,
+            UNIVERSITY.city
+
+        FROM PROGRAM
+
+        INNER JOIN UNIVERSITY
+
+        ON PROGRAM.university_id = UNIVERSITY.university_id
+
+    """).fetchall()
+
+    connection.close()
+
+    return programs
 
 
 if __name__ == "__main__":

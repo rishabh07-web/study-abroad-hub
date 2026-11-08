@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Compare Programs - Study Abroad Hub</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>Study Abroad Hub</h1>
+        <p>Compare programs and make informed decisions.</p>
+
+        <nav>
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('programs_page') }}">Explore Programs</a>
+            <a href="{{ url_for('eligibility_page') }}">Eligibility Checker</a>
+            <a href="{{ url_for('compare_page') }}">Compare Programs</a>
+        </nav>
+    </header>
+
+    <div class="page-container">
+
+        <h2>Compare Study Programs</h2>
+
+        <p>Select two programs to compare their details.</p>
+
+        <form method="POST" class="search-form">
+
+            <label for="program1">First Program:</label>
+
+            <select name="program1" id="program1" required>
+
+                <option value="">Select First Program</option>
+
+                {% for program in programs %}
+
+                    <option value="{{ program['program_id'] }}">
+                        {{ program['program_name'] }} -
+                        {{ program['university_name'] }}
+                    </option>
+
+                {% endfor %}
+
+            </select>
+
+            <label for="program2">Second Program:</label>
+
+            <select name="program2" id="program2" required>
+
+                <option value="">Select Second Program</option>
+
+                {% for program in programs %}
+
+                    <option value="{{ program['program_id'] }}">
+                        {{ program['program_name'] }} -
+                        {{ program['university_name'] }}
+                    </option>
+
+                {% endfor %}
+
+            </select>
+
+            <button type="submit">Compare Programs</button>
+
+        </form>
+
+    </div>
+
+    <footer>
+        <p>Study Abroad Hub | Student Decision Support System</p>
+    </footer>
+
+</body>
+</html>

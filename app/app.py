@@ -1,6 +1,12 @@
 
 from flask import Flask, render_template, request
-from database import get_universities, get_programs_with_university, search_programs, get_program_by_id
+from database import (
+    get_universities,
+    get_programs_with_university,
+    search_programs,
+    get_program_by_id,
+    get_programs_for_comparison
+)
 
 app = Flask(__name__)
 
@@ -77,6 +83,40 @@ def eligibility_page():
 
     return render_template(
         "eligibility.html",
+        programs=programs
+    )
+
+
+@app.route("/compare", methods=["GET", "POST"])
+def compare_page():
+
+    programs = get_programs_for_comparison()
+
+    if request.method == "POST":
+
+        program1_id = request.form.get("program1", type=int)
+        program2_id = request.form.get("program2", type=int)
+
+        if program1_id is None or program2_id is None:
+            return "Please select two valid programs.", 400
+
+        if program1_id == program2_id:
+            return "Please select two different programs.", 400
+
+        program1 = get_program_by_id(program1_id)
+        program2 = get_program_by_id(program2_id)
+
+        if program1 is None or program2 is None:
+            return "Selected program does not exist.", 404
+
+        return render_template(
+            "compare_result.html",
+            program1=program1,
+            program2=program2
+        )
+
+    return render_template(
+        "compare.html",
         programs=programs
     )
 
