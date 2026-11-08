@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Programs - Study Abroad Hub</title>
+</head>
+<body>
+
+    <h1>Explore Study Programs</h1>
+
+    {% for program in programs %}
+        <div>
+            <h2>{{ program["program_name"] }}</h2>
+            <p>University: {{ program["university_name"] }}</p>
+            <p>Country: {{ program["country"] }}</p>
+            <p>Degree: {{ program["degree"] }}</p>
+            <p>Duration: {{ program["duration"] }}</p>
+            <p>Tuition: {{ program["tuition"] }}</p>
+        </div>
+        <hr>
+    {% endfor %}
+
+    <a href="{{ url_for('home') }}">Back to Home</a>
+
+</body>
+</html>
