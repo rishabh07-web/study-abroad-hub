@@ -6,98 +6,204 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Saved Programs - Study Abroad Hub</title>
+    <title>Saved Programs | Study Abroad Hub</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
-<body>
+<body class="saved-page">
 
-    <header>
-        <h1>Study Abroad Hub</h1>
-        <p>Your shortlisted study abroad programs.</p>
+    <!-- Navigation -->
+    <header class="home-header">
+        <div class="home-navbar">
 
-        <nav>
-            <a href="{{ url_for('home') }}">Home</a>
-            <a href="{{ url_for('programs_page') }}">Explore Programs</a>
-            <a href="{{ url_for('eligibility_page') }}">Eligibility Checker</a>
-            <a href="{{ url_for('compare_page') }}">Compare Programs</a>
-            <a href="{{ url_for('saved_programs_page') }}">Saved Programs</a>
-            <a href="{{ url_for('dashboard_page') }}">Dashboard</a>
-            <a href="{{ url_for('applications_page') }}">Applications</a>
-        </nav>
+            <a href="{{ url_for('home') }}" class="home-brand">
+                <span class="brand-icon">✦</span>
+                Study Abroad <span>Hub</span>
+            </a>
+
+            <nav class="home-nav">
+                <a href="{{ url_for('home') }}">Home</a>
+                <a href="{{ url_for('programs_page') }}">Programs</a>
+                <a href="{{ url_for('eligibility_page') }}">Eligibility</a>
+                <a href="{{ url_for('compare_page') }}">Compare</a>
+                <a href="{{ url_for('saved_programs_page') }}"
+                   class="active">Saved</a>
+                <a href="{{ url_for('applications_page') }}">Applications</a>
+                <a href="{{ url_for('dashboard_page') }}"
+                   class="nav-dashboard">Dashboard</a>
+            </nav>
+
+        </div>
     </header>
 
-    <div class="page-container">
+    <main class="saved-main">
 
-        <h2>My Saved Programs</h2>
+        <!-- Page Introduction -->
+        <section class="saved-intro">
+            <span class="saved-tag">YOUR PERSONAL SHORTLIST</span>
 
-        <p>View and manage your shortlisted programs.</p>
+            <h1>My Saved <span>Programs.</span></h1>
 
-        {% if programs %}
+            <p>
+                Keep track of your preferred study programs
+                and revisit your options whenever you need.
+            </p>
+        </section>
 
-            <div class="program-list">
+        <section class="saved-content">
 
-                {% for program in programs %}
+            <!-- Section Heading -->
+            <div class="saved-section-heading">
 
-                    <div class="program-card">
+                <div>
+                    <span class="saved-tag">YOUR COLLECTION</span>
+                    <h2>Shortlisted Programs</h2>
+                </div>
 
-                        <h3>{{ program["program_name"] }}</h3>
-
-                        <p>
-                            <strong>University:</strong>
-                            {{ program["university_name"] }}
-                        </p>
-
-                        <p>
-                            <strong>Country:</strong>
-                            {{ program["country"] }}
-                        </p>
-
-                        <p>
-                            <strong>Degree:</strong>
-                            {{ program["degree"] }}
-                        </p>
-
-                        <p>
-                            <strong>Duration:</strong>
-                            {{ program["duration"] }}
-                        </p>
-
-                        <p>
-                            <strong>Tuition:</strong>
-                            {{ program["tuition"] }}
-                        </p>
-
-                        <form
-                            action="{{ url_for('remove_saved_program_route', program_id=program['program_id']) }}"
-                            method="POST"
-                            class="save-form"
-                        >
-                            <button type="submit">Remove from Saved</button>
-                        </form>
-
-                    </div>
-
-                {% endfor %}
+                <span class="saved-count">
+                    {{ programs|length }} Saved
+                </span>
 
             </div>
 
-        {% else %}
+            {% if programs %}
 
-            <p>You haven't saved any programs yet.</p>
+                <!-- Saved Program Cards -->
+                <div class="saved-program-grid">
 
-            <a href="{{ url_for('programs_page') }}" class="btn">
-                Explore Programs
-            </a>
+                    {% for program in programs %}
 
-        {% endif %}
+                        <article class="saved-program-card">
 
-    </div>
+                            <div class="saved-card-top">
 
-    <footer>
-        <p>Study Abroad Hub | Student Decision Support System</p>
+                                <span class="saved-degree">
+                                    {{ program["degree"] }}
+                                </span>
+
+                                <span class="saved-bookmark">
+                                    ★ Saved
+                                </span>
+
+                            </div>
+
+                            <div class="saved-card-body">
+
+                                <div class="saved-university-icon">🎓</div>
+
+                                <h3>{{ program["program_name"] }}</h3>
+
+                                <p class="saved-university">
+                                    {{ program["university_name"] }}
+                                </p>
+
+                                <p class="saved-location">
+                                    📍 {{ program["country"] }}
+                                </p>
+
+                                <div class="saved-details">
+
+                                    <div class="saved-detail">
+                                        <span>Degree Level</span>
+                                        <strong>{{ program["degree"] }}</strong>
+                                    </div>
+
+                                    <div class="saved-detail">
+                                        <span>Duration</span>
+                                        <strong>{{ program["duration"] }}</strong>
+                                    </div>
+
+                                    <div class="saved-detail">
+                                        <span>Listed Tuition</span>
+                                        <strong>
+                                            {{ "{:,.0f}".format(program["tuition"]) if program["tuition"] is not none else "Not available" }}
+                                        </strong>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="saved-card-footer">
+
+                                <form
+                                    action="{{ url_for('remove_saved_program_route', program_id=program['program_id']) }}"
+                                    method="POST"
+                                    class="saved-remove-form"
+                                    onsubmit="return confirm('Remove this program from your saved list?');">
+
+                                    <button type="submit"
+                                            class="saved-remove-btn">
+                                        Remove from Saved
+                                    </button>
+
+                                </form>
+
+                                <a href="{{ url_for('compare_page') }}"
+                                   class="saved-compare-link">
+                                    Compare →
+                                </a>
+
+                            </div>
+
+                        </article>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <!-- Empty State -->
+                <div class="saved-empty-state">
+
+                    <div class="saved-empty-icon">🔖</div>
+
+                    <h3>No Saved Programs Yet</h3>
+
+                    <p>
+                        Your shortlist is empty. Explore available
+                        programs and save the ones that interest you.
+                    </p>
+
+                    <a href="{{ url_for('programs_page') }}"
+                       class="saved-explore-btn">
+                        Explore Programs →
+                    </a>
+
+                </div>
+
+            {% endif %}
+
+            <!-- Information Notice -->
+            <div class="saved-info-notice">
+                <strong>About Your Shortlist</strong>
+                <p>
+                    Saved programs help you organize your preferred
+                    study options. You can remove a program from
+                    your shortlist at any time without deleting it
+                    from the university database.
+                </p>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="home-footer">
+
+        <div>
+            <strong>✦ Study Abroad Hub</strong>
+            <p>Student Decision Support System</p>
+        </div>
+
+        <p>
+            Helping students make informed education decisions.
+        </p>
+
     </footer>
 
 </body>
