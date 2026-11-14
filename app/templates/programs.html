@@ -6,152 +6,255 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Explore Programs - Study Abroad Hub</title>
+    <title>Explore Programs | Study Abroad Hub</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
-<body>
+<body class="explore-page">
 
     <!-- Navigation Bar -->
-    <header>
-        <h1>Study Abroad Hub</h1>
-        <p>Find the right academic program for your future.</p>
+    <header class="home-header">
+        <div class="home-navbar">
 
-        <nav>
-            <a href="{{ url_for('home') }}">Home</a>
-            <a href="{{ url_for('programs_page') }}">Explore Programs</a>
-            <a href="{{ url_for('saved_programs_page') }}">Saved Programs</a>
-            <a href="{{ url_for('dashboard_page') }}">Dashboard</a>
-            <a href="{{ url_for('applications_page') }}">Applications</a>
-        </nav>
-    </header>
-
-    <!-- Main Content -->
-    <div class="page-container">
-
-        <h2>Explore Study Programs</h2>
-
-        <p>Search and filter programs according to your preferences.</p>
-
-        <!-- Search and Filter Form -->
-        <form action="{{ url_for('programs_page') }}"
-              method="GET"
-              class="search-form">
-
-            <input
-                type="text"
-                name="search"
-                placeholder="Search program name..."
-                value="{{ search }}"
-            >
-
-            <select name="country">
-                <option value="">All Countries</option>
-
-                <option value="Canada"
-                    {% if country == "Canada" %}selected{% endif %}>
-                    Canada
-                </option>
-
-                <option value="United Kingdom"
-                    {% if country == "United Kingdom" %}selected{% endif %}>
-                    United Kingdom
-                </option>
-            </select>
-
-            <select name="degree">
-                <option value="">All Degrees</option>
-
-                <option value="Bachelor's"
-                    {% if degree == "Bachelor's" %}selected{% endif %}>
-                    Bachelor's
-                </option>
-
-                <option value="Master's"
-                    {% if degree == "Master's" %}selected{% endif %}>
-                    Master's
-                </option>
-            </select>
-
-            <button type="submit">Search</button>
-
-            <a href="{{ url_for('programs_page') }}"
-               class="clear-link">
-                Clear Filters
+            <a href="{{ url_for('home') }}" class="home-brand">
+                <span class="brand-icon">✦</span>
+                Study Abroad <span>Hub</span>
             </a>
 
-        </form>
+            <nav class="home-nav">
+                <a href="{{ url_for('home') }}">Home</a>
+                <a href="{{ url_for('programs_page') }}" class="active">
+                    Programs
+                </a>
+                <a href="{{ url_for('eligibility_page') }}">Eligibility</a>
+                <a href="{{ url_for('compare_page') }}">Compare</a>
+                <a href="{{ url_for('saved_programs_page') }}">Saved</a>
+                <a href="{{ url_for('applications_page') }}">Applications</a>
+                <a href="{{ url_for('dashboard_page') }}"
+                   class="nav-dashboard">Dashboard</a>
+            </nav>
 
-        <!-- Program Results -->
-        <h2>Available Programs</h2>
+        </div>
+    </header>
 
-        {% if programs %}
+    <main class="explore-main">
 
-            <div class="program-list">
+        <!-- Page Introduction -->
+        <section class="explore-intro">
 
-                {% for program in programs %}
+            <span class="explore-tag">DISCOVER YOUR OPPORTUNITIES</span>
 
-                    <div class="program-card">
+            <h1>Find Your Ideal <span>Study Program.</span></h1>
 
-                        <h3>{{ program["program_name"] }}</h3>
+            <p>
+                Explore universities and academic programs,
+                compare your options, and discover opportunities
+                that match your educational goals.
+            </p>
 
-                        <p>
-                            <strong>University:</strong>
-                            {{ program["university_name"] }}
-                        </p>
+        </section>
 
-                        <p>
-                            <strong>Country:</strong>
-                            {{ program["country"] }}
-                        </p>
+        <!-- Search Panel -->
+        <section class="explore-search-section">
 
-                        <p>
-                            <strong>Degree:</strong>
-                            {{ program["degree"] }}
-                        </p>
+            <div class="explore-search-panel">
 
-                        <p>
-                            <strong>Field:</strong>
-                            {{ program["field"] }}
-                        </p>
+                <div class="search-panel-heading">
+                    <h2>Search &amp; Filter Programs</h2>
+                    <p>Refine your search to find the right academic path.</p>
+                </div>
 
-                        <p>
-                            <strong>Duration:</strong>
-                            {{ program["duration"] }}
-                        </p>
+                <form action="{{ url_for('programs_page') }}"
+                      method="GET"
+                      class="explore-search-form">
 
-                        <p>
-                            <strong>Tuition:</strong>
-                            {{ program["tuition"] }}
-                        </p>
-                        
-                        <form
-                            action="{{ url_for('save_program_route', program_id=program['program_id']) }}"
-                            method="POST"
-                            class="save-form"
+                    <div class="filter-field">
+                        <label for="search">Program Name</label>
+                        <input
+                            id="search"
+                            type="text"
+                            name="search"
+                            placeholder="e.g. Computer Science"
+                            value="{{ search or '' }}"
                         >
-                            <button type="submit">Save Programme</button>
-                        </form>
-
                     </div>
 
-                {% endfor %}
+                    <div class="filter-field">
+                        <label for="country">Country</label>
+
+                        <select name="country" id="country">
+                            <option value="">All Countries</option>
+
+                            <option value="Canada"
+                                {% if country == "Canada" %}selected{% endif %}>
+                                Canada
+                            </option>
+
+                            <option value="United Kingdom"
+                                {% if country == "United Kingdom" %}selected{% endif %}>
+                                United Kingdom
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="filter-field">
+                        <label for="degree">Degree Level</label>
+
+                        <select name="degree" id="degree">
+                            <option value="">All Degrees</option>
+
+                            <option value="Bachelor's"
+                                {% if degree == "Bachelor's" %}selected{% endif %}>
+                                Bachelor's
+                            </option>
+
+                            <option value="Master's"
+                                {% if degree == "Master's" %}selected{% endif %}>
+                                Master's
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="filter-actions">
+                        <button type="submit" class="explore-search-btn">
+                            Search Programs
+                        </button>
+                    </div>
+
+                </form>
+
+                <a href="{{ url_for('programs_page') }}"
+                   class="explore-clear-link">
+                    Clear all filters
+                </a>
 
             </div>
 
-        {% else %}
+        </section>
 
-            <p>No programs found. Try changing your search or filters.</p>
+        <!-- Program Results -->
+        <section class="explore-results">
 
-        {% endif %}
+            <div class="results-heading">
+                <div>
+                    <span class="explore-tag">EXPLORE YOUR OPTIONS</span>
+                    <h2>Available Programs</h2>
+                </div>
 
-    </div>
+                <span class="results-count">
+                    {{ programs|length }} program(s) found
+                </span>
+            </div>
 
-    <!-- Footer -->
-    <footer>
-        <p>Study Abroad Hub | Student Decision Support System</p>
+            {% if programs %}
+
+                <div class="explore-program-grid">
+
+                    {% for program in programs %}
+
+                        <article class="explore-program-card">
+
+                            <div class="program-card-top">
+                                <span class="program-degree">
+                                    {{ program["degree"] }}
+                                </span>
+
+                                <span class="program-country">
+                                    📍 {{ program["country"] }}
+                                </span>
+                            </div>
+
+                            <div class="program-card-body">
+
+                                <div class="university-icon">🎓</div>
+
+                                <h3>{{ program["program_name"] }}</h3>
+
+                                <p class="program-university">
+                                    {{ program["university_name"] }}
+                                </p>
+
+                                <div class="program-details">
+
+                                    <div class="program-detail">
+                                        <span>Field of Study</span>
+                                        <strong>{{ program["field"] }}</strong>
+                                    </div>
+
+                                    <div class="program-detail">
+                                        <span>Duration</span>
+                                        <strong>{{ program["duration"] }}</strong>
+                                    </div>
+
+                                    <div class="program-detail">
+                                        <span>Listed Tuition</span>
+                                        <strong>
+                                            {{ "{:,.0f}".format(program["tuition"]) if program["tuition"] is not none else "Not available" }}
+                                        </strong>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="program-card-footer">
+
+                                <form
+                                    action="{{ url_for('save_program_route', program_id=program['program_id']) }}"
+                                    method="POST"
+                                    class="explore-save-form">
+
+                                    <button type="submit"
+                                            class="explore-save-btn">
+                                        ☆ Save Program
+                                    </button>
+
+                                </form>
+
+                                <a href="{{ url_for('eligibility_page') }}"
+                                   class="explore-eligibility-link">
+                                    Check Eligibility →
+                                </a>
+
+                            </div>
+
+                        </article>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <div class="explore-empty-state">
+                    <div class="empty-icon">🔎</div>
+                    <h3>No Programs Found</h3>
+                    <p>
+                        We couldn't find programs matching your filters.
+                        Try changing the search terms or clearing the filters.
+                    </p>
+
+                    <a href="{{ url_for('programs_page') }}"
+                       class="explore-reset-btn">
+                        View All Programs
+                    </a>
+                </div>
+
+            {% endif %}
+
+        </section>
+
+    </main>
+
+    <footer class="home-footer">
+        <div>
+            <strong>✦ Study Abroad Hub</strong>
+            <p>Student Decision Support System</p>
+        </div>
+
+        <p>Helping students make informed education decisions.</p>
     </footer>
 
 </body>
