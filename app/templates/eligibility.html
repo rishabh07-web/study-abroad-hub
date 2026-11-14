@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,85 +6,262 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Eligibility Checker - Study Abroad Hub</title>
+    <title>Eligibility Checker | Study Abroad Hub</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
-<body>
+<body class="eligibility-page">
 
-    <header>
-        <h1>Study Abroad Hub</h1>
-        <p>Check your eligibility for international study programs.</p>
+    <!-- Navigation Bar -->
+    <header class="home-header">
 
-        <nav>
-            <a href="{{ url_for('home') }}">Home</a>
-            <a href="{{ url_for('programs_page') }}">Explore Programs</a>
-            <a href="{{ url_for('eligibility_page') }}">Eligibility Checker</a>
-            <a href="{{ url_for('saved_programs_page') }}">Saved Programs</a>
-            <a href="{{ url_for('dashboard_page') }}">Dashboard</a>
-            <a href="{{ url_for('applications_page') }}">Applications</a>
-        </nav>
+        <div class="home-navbar">
+
+            <a href="{{ url_for('home') }}" class="home-brand">
+                <span class="brand-icon">✦</span>
+                Study Abroad <span>Hub</span>
+            </a>
+
+            <nav class="home-nav">
+                <a href="{{ url_for('home') }}">Home</a>
+                <a href="{{ url_for('programs_page') }}">Programs</a>
+                <a href="{{ url_for('eligibility_page') }}" class="active">
+                    Eligibility
+                </a>
+                <a href="{{ url_for('compare_page') }}">Compare</a>
+                <a href="{{ url_for('saved_programs_page') }}">Saved</a>
+                <a href="{{ url_for('applications_page') }}">Applications</a>
+                <a href="{{ url_for('dashboard_page') }}"
+                   class="nav-dashboard">
+                    Dashboard
+                </a>
+            </nav>
+
+        </div>
+
     </header>
 
-    <div class="page-container">
+    <main class="eligibility-main">
 
-        <h2>Check Your Eligibility</h2>
+        <!-- Introduction -->
+        <section class="eligibility-intro">
 
-        <p>Select a program and enter your academic scores.</p>
+            <span class="eligibility-tag">
+                CHECK YOUR QUALIFICATIONS
+            </span>
 
-        <form method="POST" class="search-form">
+            <h1>
+                Discover Your
+                <span>Eligibility.</span>
+            </h1>
 
-            <label for="program_id">Select Program:</label>
+            <p>
+                Find out whether your academic performance and
+                English language score meet the listed requirements
+                of your preferred study program.
+            </p>
 
-            <select name="program_id" id="program_id" required>
+        </section>
 
-                <option value="">Choose a program</option>
+        <!-- Eligibility Content -->
+        <section class="eligibility-content">
 
-                {% for program in programs %}
+            <!-- Form Card -->
+            <div class="eligibility-form-card">
 
-                    <option value="{{ program['program_id'] }}">
-                        {{ program['program_name'] }} -
-                        {{ program['university_name'] }}
-                    </option>
+                <div class="eligibility-card-heading">
 
-                {% endfor %}
+                    <div class="eligibility-heading-icon">🎓</div>
 
-            </select>
+                    <h2>Check Your Eligibility</h2>
 
-            <label for="cgpa">Your CGPA (out of 10):</label>
+                    <p>
+                        Enter your academic details below to check
+                        your eligibility for a selected program.
+                    </p>
 
-            <input
-                type="number"
-                id="cgpa"
-                name="cgpa"
-                min="0"
-                max="10"
-                step="0.01"
-                required
-            >
+                </div>
 
-            <label for="ielts">Your IELTS Score:</label>
+                <form method="POST" class="eligibility-form">
 
-            <input
-                type="number"
-                id="ielts"
-                name="ielts"
-                min="0"
-                max="9"
-                step="0.5"
-                required
-            >
+                    <!-- Program Selection -->
+                    <div class="eligibility-field">
 
-            <button type="submit">Check Eligibility</button>
+                        <label for="program_id">
+                            Select Study Program
+                        </label>
 
-        </form>
+                        <select
+                            name="program_id"
+                            id="program_id"
+                            required
+                        >
 
-    </div>
+                            <option value="">
+                                Choose a program
+                            </option>
 
-    <footer>
-        <p>Study Abroad Hub | Student Decision Support System</p>
+                            {% for program in programs %}
+
+                                <option value="{{ program['program_id'] }}">
+                                    {{ program['program_name'] }}
+                                    -
+                                    {{ program['university_name'] }}
+                                </option>
+
+                            {% endfor %}
+
+                        </select>
+
+                        <small>
+                            Select the university program you want
+                            to check.
+                        </small>
+
+                    </div>
+
+                    <!-- Academic Scores -->
+                    <div class="eligibility-score-grid">
+
+                        <div class="eligibility-field">
+
+                            <label for="cgpa">
+                                Your CGPA
+                            </label>
+
+                            <input
+                                type="number"
+                                id="cgpa"
+                                name="cgpa"
+                                min="0"
+                                max="10"
+                                step="0.01"
+                                placeholder="e.g. 8.20"
+                                required
+                            >
+
+                            <small>Scale: 0 to 10</small>
+
+                        </div>
+
+                        <div class="eligibility-field">
+
+                            <label for="ielts">
+                                Your IELTS Score
+                            </label>
+
+                            <input
+                                type="number"
+                                id="ielts"
+                                name="ielts"
+                                min="0"
+                                max="9"
+                                step="0.5"
+                                placeholder="e.g. 7.0"
+                                required
+                            >
+
+                            <small>Scale: 0 to 9</small>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Submit -->
+                    <button
+                        type="submit"
+                        class="eligibility-submit-btn"
+                    >
+                        Check My Eligibility →
+                    </button>
+
+                </form>
+
+            </div>
+
+            <!-- Information Panel -->
+            <div class="eligibility-info-panel">
+
+                <div class="info-panel-icon">🌍</div>
+
+                <h2>How Does It Work?</h2>
+
+                <p>
+                    Our Eligibility Checker helps you compare
+                    your qualifications with the academic and
+                    language requirements stored for a program.
+                </p>
+
+                <div class="eligibility-info-step">
+
+                    <div class="step-number">01</div>
+
+                    <div>
+                        <h3>Select a Program</h3>
+                        <p>
+                            Choose the university program
+                            you're interested in.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="eligibility-info-step">
+
+                    <div class="step-number">02</div>
+
+                    <div>
+                        <h3>Enter Your Scores</h3>
+                        <p>
+                            Provide your CGPA and IELTS score.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="eligibility-info-step">
+
+                    <div class="step-number">03</div>
+
+                    <div>
+                        <h3>View Your Result</h3>
+                        <p>
+                            See whether you meet the listed
+                            minimum requirements.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="eligibility-notice">
+                    <strong>Important Note</strong>
+                    <p>
+                        This tool provides a preliminary eligibility
+                        assessment using stored program criteria.
+                        It does not guarantee university admission.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="home-footer">
+
+        <div>
+            <strong>✦ Study Abroad Hub</strong>
+            <p>Student Decision Support System</p>
+        </div>
+
+        <p>
+            Helping students make informed education decisions.
+        </p>
+
     </footer>
 
 </body>

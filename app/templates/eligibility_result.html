@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,107 +6,228 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Eligibility Result - Study Abroad Hub</title>
+    <title>Eligibility Result | Study Abroad Hub</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
-<body>
+<body class="eligibility-result-page">
 
-    <header>
-        <h1>Study Abroad Hub</h1>
-        <p>Your eligibility assessment</p>
+    <!-- Navigation Bar -->
+    <header class="home-header">
+        <div class="home-navbar">
 
-        <nav>
-            <a href="{{ url_for('home') }}">Home</a>
-            <a href="{{ url_for('programs_page') }}">Explore Programs</a>
-            <a href="{{ url_for('eligibility_page') }}">Eligibility Checker</a>
-            <a href="{{ url_for('saved_programs_page') }}">Saved Programs</a>
-            <a href="{{ url_for('dashboard_page') }}">Dashboard</a>
-            <a href="{{ url_for('applications_page') }}">Applications</a>
-        </nav>
-    </header>
+            <a href="{{ url_for('home') }}" class="home-brand">
+                <span class="brand-icon">✦</span>
+                Study Abroad <span>Hub</span>
+            </a>
 
-    <div class="page-container">
-
-        <h2>Eligibility Assessment</h2>
-
-        <div class="program-card">
-
-            <h3>{{ program["program_name"] }}</h3>
-
-            <p>
-                <strong>University:</strong>
-                {{ program["university_name"] }}
-            </p>
-
-            <hr>
-
-            <h3>Your Scores vs Required Scores</h3>
-
-            <p>
-                <strong>CGPA:</strong>
-                {{ cgpa }} / 10
-            </p>
-
-            <p>
-                <strong>Minimum CGPA Required:</strong>
-                {{ program["min_cgpa"] }}
-            </p>
-
-            <p>
-                <strong>CGPA Status:</strong>
-
-                {% if cgpa_eligible %}
-                    <span class="eligible">Requirement Met</span>
-                {% else %}
-                    <span class="not-eligible">Requirement Not Met</span>
-                {% endif %}
-            </p>
-
-            <hr>
-
-            <p>
-                <strong>IELTS Score:</strong>
-                {{ ielts }} / 9
-            </p>
-
-            <p>
-                <strong>Minimum IELTS Required:</strong>
-                {{ program["min_ielts"] }}
-            </p>
-
-            <p>
-                <strong>IELTS Status:</strong>
-
-                {% if ielts_eligible %}
-                    <span class="eligible">Requirement Met</span>
-                {% else %}
-                    <span class="not-eligible">Requirement Not Met</span>
-                {% endif %}
-            </p>
-
-            <hr>
-
-            <h3>{{ result }}</h3>
-
-            <p>
-                This result is based only on the minimum CGPA and IELTS
-                requirements stored in our demonstration database.
-                It does not guarantee admission.
-            </p>
+            <nav class="home-nav">
+                <a href="{{ url_for('home') }}">Home</a>
+                <a href="{{ url_for('programs_page') }}">Programs</a>
+                <a href="{{ url_for('eligibility_page') }}" class="active">
+                    Eligibility
+                </a>
+                <a href="{{ url_for('compare_page') }}">Compare</a>
+                <a href="{{ url_for('saved_programs_page') }}">Saved</a>
+                <a href="{{ url_for('applications_page') }}">Applications</a>
+                <a href="{{ url_for('dashboard_page') }}"
+                   class="nav-dashboard">Dashboard</a>
+            </nav>
 
         </div>
+    </header>
 
-        <a href="{{ url_for('eligibility_page') }}" class="btn">
-            Check Another Program
-        </a>
+    <main class="result-main">
 
-    </div>
+        <!-- Page Heading -->
+        <section class="result-intro">
+            <span class="result-tag">YOUR ASSESSMENT</span>
+            <h1>Your Eligibility <span>Result.</span></h1>
+            <p>
+                Review your scores and see how they compare with
+                the minimum requirements of your selected program.
+            </p>
+        </section>
 
-    <footer>
-        <p>Study Abroad Hub | Student Decision Support System</p>
+        <section class="result-content">
+
+            <!-- Overall Result -->
+            <div class="result-status-card
+                {% if cgpa_eligible and ielts_eligible %}
+                    result-success
+                {% else %}
+                    result-failure
+                {% endif %}">
+
+                {% if cgpa_eligible and ielts_eligible %}
+                    <div class="result-status-icon">✓</div>
+                    <span class="result-status-label">REQUIREMENTS MET</span>
+                {% else %}
+                    <div class="result-status-icon">!</div>
+                    <span class="result-status-label">
+                        REQUIREMENTS NOT MET
+                    </span>
+                {% endif %}
+
+                <h2>{{ result }}</h2>
+
+                <p>
+                    {% if cgpa_eligible and ielts_eligible %}
+                        Your scores meet the minimum CGPA and IELTS
+                        requirements stored for this program.
+                    {% else %}
+                        One or more of your scores do not meet
+                        the minimum requirements stored for this program.
+                    {% endif %}
+                </p>
+
+            </div>
+
+            <!-- Selected Program -->
+            <div class="result-program-card">
+
+                <div class="result-section-heading">
+                    <div class="result-section-icon">🎓</div>
+                    <div>
+                        <span>SELECTED STUDY PROGRAM</span>
+                        <h2>{{ program["program_name"] }}</h2>
+                        <p>{{ program["university_name"] }}</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Score Comparison -->
+            <div class="result-score-card">
+
+                <h2>Your Scores vs Required Scores</h2>
+
+                <p class="result-score-description">
+                    Here's how your qualifications compare with
+                    the program's stored minimum requirements.
+                </p>
+
+                <div class="result-score-grid">
+
+                    <!-- CGPA -->
+                    <div class="result-score-item">
+
+                        <div class="result-score-top">
+                            <h3>Academic CGPA</h3>
+
+                            {% if cgpa_eligible %}
+                                <span class="result-met">✓ Met</span>
+                            {% else %}
+                                <span class="result-not-met">✕ Not Met</span>
+                            {% endif %}
+                        </div>
+
+                        <div class="result-score-values">
+
+                            <div>
+                                <small>Your CGPA</small>
+                                <strong>{{ cgpa }} <span>/ 10</span></strong>
+                            </div>
+
+                            <div>
+                                <small>Minimum Required</small>
+                                <strong>{{ program["min_cgpa"] }}</strong>
+                            </div>
+
+                        </div>
+
+                        <p class="score-explanation">
+                            {% if cgpa_eligible %}
+                                Your CGPA meets the listed minimum.
+                            {% else %}
+                                Your CGPA is below the listed minimum.
+                            {% endif %}
+                        </p>
+
+                    </div>
+
+                    <!-- IELTS -->
+                    <div class="result-score-item">
+
+                        <div class="result-score-top">
+                            <h3>IELTS Score</h3>
+
+                            {% if ielts_eligible %}
+                                <span class="result-met">✓ Met</span>
+                            {% else %}
+                                <span class="result-not-met">✕ Not Met</span>
+                            {% endif %}
+                        </div>
+
+                        <div class="result-score-values">
+
+                            <div>
+                                <small>Your IELTS</small>
+                                <strong>{{ ielts }} <span>/ 9</span></strong>
+                            </div>
+
+                            <div>
+                                <small>Minimum Required</small>
+                                <strong>{{ program["min_ielts"] }}</strong>
+                            </div>
+
+                        </div>
+
+                        <p class="score-explanation">
+                            {% if ielts_eligible %}
+                                Your IELTS score meets the listed minimum.
+                            {% else %}
+                                Your IELTS score is below the listed minimum.
+                            {% endif %}
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Disclaimer -->
+            <div class="result-disclaimer">
+                <strong>Important Note</strong>
+                <p>
+                    This is a preliminary assessment based on the
+                    CGPA and IELTS criteria stored in our demonstration
+                    database. Meeting these requirements does not
+                    guarantee admission. Always verify current
+                    requirements with the university.
+                </p>
+            </div>
+
+            <!-- Actions -->
+            <div class="result-actions">
+
+                <a href="{{ url_for('eligibility_page') }}"
+                   class="result-primary-btn">
+                    Check Another Program →
+                </a>
+
+                <a href="{{ url_for('programs_page') }}"
+                   class="result-secondary-btn">
+                    Explore Programs
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="home-footer">
+        <div>
+            <strong>✦ Study Abroad Hub</strong>
+            <p>Student Decision Support System</p>
+        </div>
+
+        <p>Helping students make informed education decisions.</p>
     </footer>
 
 </body>
