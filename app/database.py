@@ -74,6 +74,16 @@ def create_tables():
 
         );
 
+        CREATE TABLE IF NOT EXISTS SAVED_PROGRAM (
+            saved_id INTEGER PRIMARY KEY AUTOINCREMENT,
+            program_id INTEGER NOT NULL UNIQUE,
+            saved_at TEXT DEFAULT CURRENT_TIMESTAMP,
+
+            FOREIGN KEY (program_id)
+                REFERENCES PROGRAM(program_id)
+                ON DELETE CASCADE
+        );
+
     """)
 
     connection.close()
@@ -345,3 +355,57 @@ if __name__ == "__main__":
             "|",
             program["degree"]
         )
+
+
+def save_program(program_id):
+    connection = create_connection()
+
+    connection.execute("""
+        INSERT OR IGNORE INTO SAVED_PROGRAM (program_id)
+        VALUES (?)
+    """, (program_id,))
+
+    connection.commit()
+    connection.close()
+
+
+def get_saved_programs():
+    connection = create_connection()
+
+    saved_programs = connection.execute("""
+        SELECT
+            PROGRAM.program_id,
+            PROGRAM.name AS program_name,
+            PROGRAM.degree,
+            PROGRAM.tuition,
+            PROGRAM.duration,
+            UNIVERSITY.name AS university_name,
+            UNIVERSITY.country,
+            SAVED_PROGRAM.saved_at
+
+        FROM SAVED_PROGRAM
+
+        INNER JOIN PROGRAM
+        ON SAVED_PROGRAM.program_id = PROGRAM.program_id
+
+        INNER JOIN UNIVERSITY
+        ON PROGRAM.university_id = UNIVERSITY.university_id
+
+        ORDER BY SAVED_PROGRAM.saved_at DESC
+    """).fetchall()
+
+    connection.close()
+
+    return saved_programs
+
+
+def remove_saved_program(program_id):
+    connection = create_connection()
+
+    connection.execute("""
+        DELETE FROM SAVED_PROGRAM
+        WHERE program_id = ?
+    """, (program_id,))
+
+    connection.commit()
+    connection.close()

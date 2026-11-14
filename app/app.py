@@ -1,11 +1,14 @@
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from database import (
     get_universities,
     get_programs_with_university,
     search_programs,
     get_program_by_id,
-    get_programs_for_comparison
+    get_programs_for_comparison,
+    save_program,
+    get_saved_programs,
+    remove_saved_program
 )
 
 app = Flask(__name__)
@@ -119,6 +122,40 @@ def compare_page():
         "compare.html",
         programs=programs
     )
+
+
+@app.route("/save-program/<int:program_id>", methods=["POST"])
+def save_program_route(program_id):
+
+    program = get_program_by_id(program_id)
+
+    if program is None:
+        return "Program does not exist.", 404
+
+    save_program(program_id)
+
+    return redirect(url_for("programs_page"))
+
+
+
+@app.route("/saved-programs")
+def saved_programs_page():
+
+    programs = get_saved_programs()
+
+    return render_template(
+        "saved_programs.html",
+        programs=programs
+    )
+
+
+@app.route("/remove-saved-program/<int:program_id>", methods=["POST"])
+def remove_saved_program_route(program_id):
+
+    remove_saved_program(program_id)
+
+    return redirect(url_for("saved_programs_page"))
+
 
 
 if __name__ == "__main__":

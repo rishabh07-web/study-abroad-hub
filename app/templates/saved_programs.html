@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Saved Programs - Study Abroad Hub</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>Study Abroad Hub</h1>
+        <p>Your shortlisted study abroad programs.</p>
+
+        <nav>
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('programs_page') }}">Explore Programs</a>
+            <a href="{{ url_for('eligibility_page') }}">Eligibility Checker</a>
+            <a href="{{ url_for('compare_page') }}">Compare Programs</a>
+            <a href="{{ url_for('saved_programs_page') }}">Saved Programs</a>
+        </nav>
+    </header>
+
+    <div class="page-container">
+
+        <h2>My Saved Programs</h2>
+
+        <p>View and manage your shortlisted programs.</p>
+
+        {% if programs %}
+
+            <div class="program-list">
+
+                {% for program in programs %}
+
+                    <div class="program-card">
+
+                        <h3>{{ program["program_name"] }}</h3>
+
+                        <p>
+                            <strong>University:</strong>
+                            {{ program["university_name"] }}
+                        </p>
+
+                        <p>
+                            <strong>Country:</strong>
+                            {{ program["country"] }}
+                        </p>
+
+                        <p>
+                            <strong>Degree:</strong>
+                            {{ program["degree"] }}
+                        </p>
+
+                        <p>
+                            <strong>Duration:</strong>
+                            {{ program["duration"] }}
+                        </p>
+
+                        <p>
+                            <strong>Tuition:</strong>
+                            {{ program["tuition"] }}
+                        </p>
+
+                        <form
+                            action="{{ url_for('remove_saved_program_route', program_id=program['program_id']) }}"
+                            method="POST"
+                            class="save-form"
+                        >
+                            <button type="submit">Remove from Saved</button>
+                        </form>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <p>You haven't saved any programs yet.</p>
+
+            <a href="{{ url_for('programs_page') }}" class="btn">
+                Explore Programs
+            </a>
+
+        {% endif %}
+
+    </div>
+
+    <footer>
+        <p>Study Abroad Hub | Student Decision Support System</p>
+    </footer>
+
+</body>
+</html>

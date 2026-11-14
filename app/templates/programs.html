@@ -123,6 +123,14 @@
                             <strong>Tuition:</strong>
                             {{ program["tuition"] }}
                         </p>
+                        
+                        <form
+                            action="{{ url_for('save_program_route', program_id=program['program_id']) }}"
+                            method="POST"
+                            class="save-form"
+                        >
+                            <button type="submit">Save Programme</button>
+                        </form>
 
                     </div>
 

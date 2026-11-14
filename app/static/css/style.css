@@ -239,3 +239,14 @@ footer {
     background-color: #e3e8ef;
     min-width: 130px;
 }
+
+
+/* Save Programme Button */
+
+.save-form {
+    margin-top: 15px;
+}
+
+.save-form button {
+    width: 100%;
+}
