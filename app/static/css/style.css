@@ -302,3 +302,112 @@ footer {
 .dashboard-link:hover {
     background-color: #245a91;
 }
+
+
+
+/* Application and Deadline Tracker */
+
+.application-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background-color: white;
+    padding: 25px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin: 25px 0 40px;
+    max-width: 650px;
+}
+
+.application-form label {
+    font-weight: bold;
+    color: #173b63;
+}
+
+.application-form input,
+.application-form select,
+.application-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+.application-form button {
+    margin-top: 10px;
+    align-self: flex-start;
+}
+
+.application-form textarea {
+    resize: vertical;
+}
+
+
+
+/* Application Error Popup */
+
+.popup-message {
+    position: fixed;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff;
+    color: #d62828;
+    padding: 20px 30px;
+    border: 2px solid #d62828;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    text-align: center;
+    min-width: 280px;
+    max-width: 90%;
+}
+
+.popup-message p {
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.popup-message button {
+    padding: 8px 25px;
+}
+
+
+/* Edit Application Button */
+
+.edit-btn {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: #173b63;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.edit-btn:hover {
+    background-color: #245a91;
+}
+
+
+
+/* Delete Application Button */
+
+.delete-form {
+    display: inline-block;
+    margin-left: 8px;
+}
+
+.delete-btn {
+    background-color: #c62828;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    background-color: #a61c1c;
+}

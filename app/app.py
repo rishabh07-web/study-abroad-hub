@@ -1,5 +1,5 @@
 
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 from database import (
     get_universities,
     get_programs_with_university,
@@ -9,10 +9,18 @@ from database import (
     save_program,
     get_saved_programs,
     remove_saved_program,
-    get_dashboard_stats
+    get_dashboard_stats,
+    add_application,
+    get_applications,
+    update_application,
+    delete_application
 )
 
 app = Flask(__name__)
+
+import os
+
+app.secret_key = os.environ.get("FLASK_SECRET_KEY", "dev-only-change-me")
 
 
 @app.route("/")
@@ -168,6 +176,150 @@ def dashboard_page():
         "dashboard.html",
         stats=stats
     )
+
+
+
+@app.route("/applications", methods=["GET", "POST"])
+def applications_page():
+
+    programs = get_programs_for_comparison()
+
+    if request.method == "POST":
+
+        program_id = request.form.get("program_id", type=int)
+        status = request.form.get("status", "")
+        deadline = request.form.get("deadline", "")
+        notes = request.form.get("notes", "").strip()
+
+        valid_statuses = [
+            "Not Applied",
+            "Applied",
+            "Under Review",
+            "Accepted",
+            "Rejected"
+        ]
+
+        if program_id is None or get_program_by_id(program_id) is None:
+            return "Please select a valid program.", 400
+
+        if status not in valid_statuses:
+            return "Invalid application status.", 400
+
+        from datetime import date
+
+        if deadline:
+            try:
+                parsed_deadline = date.fromisoformat(deadline)
+                if parsed_deadline.isoformat() != deadline:
+                    return "Invalid deadline format.", 400
+            except ValueError:
+                return "Invalid deadline date.", 400
+
+        existing = get_applications()
+
+        if any(a["program_id"] == program_id for a in existing):
+            flash("This program is already being tracked!", "error")
+            return redirect(url_for("applications_page"))
+
+        add_application(program_id, status, deadline or None, notes)
+
+        return redirect(url_for("applications_page"))
+
+    applications = get_applications()
+
+    return render_template(
+        "applications.html",
+        programs=programs,
+        applications=applications
+    )
+
+
+
+@app.route("/applications/edit/<int:application_id>", methods=["GET", "POST"])
+def edit_application_page(application_id):
+
+    applications = get_applications()
+
+    application = next(
+        (a for a in applications
+         if a["application_id"] == application_id),
+        None
+    )
+
+    if application is None:
+        return "Application not found.", 404
+
+    if request.method == "POST":
+
+        status = request.form.get("status", "")
+        deadline = request.form.get("deadline", "")
+        notes = request.form.get("notes", "").strip()
+
+        valid_statuses = [
+            "Not Applied",
+            "Applied",
+            "Under Review",
+            "Accepted",
+            "Rejected"
+        ]
+
+        if status not in valid_statuses:
+            flash("Invalid application status.", "error")
+            return redirect(
+                url_for("edit_application_page", application_id=application_id)
+            )
+
+        from datetime import date
+
+        if deadline:
+            try:
+                parsed_deadline = date.fromisoformat(deadline)
+                if parsed_deadline.isoformat() != deadline:
+                    raise ValueError
+            except ValueError:
+                flash("Invalid deadline date.", "error")
+                return redirect(
+                    url_for("edit_application_page", application_id=application_id)
+                )
+
+        update_application(
+            application_id,
+            status,
+            deadline or None,
+            notes
+        )
+
+        flash("Application updated successfully!", "success")
+
+        return redirect(url_for("applications_page"))
+
+    return render_template(
+        "edit_application.html",
+        application=application
+    )
+
+
+
+@app.route("/applications/delete/<int:application_id>", methods=["POST"])
+def delete_application_route(application_id):
+
+    applications = get_applications()
+
+    application = next(
+        (a for a in applications
+         if a["application_id"] == application_id),
+        None
+    )
+
+    if application is None:
+        flash("Application not found.", "error")
+        return redirect(url_for("applications_page"))
+
+    delete_application(application_id)
+
+    flash("Application deleted successfully!", "success")
+
+    return redirect(url_for("applications_page"))
 
 
 

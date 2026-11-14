@@ -84,6 +84,30 @@ def create_tables():
                 ON DELETE CASCADE
         );
 
+
+        CREATE TABLE IF NOT EXISTS APPLICATION (
+            application_id INTEGER PRIMARY KEY AUTOINCREMENT,
+            program_id INTEGER NOT NULL UNIQUE,
+            application_status TEXT NOT NULL DEFAULT 'Not Applied'
+                CHECK (
+                    application_status IN (
+                        'Not Applied',
+                        'Applied',
+                        'Under Review',
+                        'Accepted',
+                        'Rejected'
+                    )
+                ),
+            deadline TEXT,
+            notes TEXT,
+            updated_at TEXT DEFAULT CURRENT_TIMESTAMP,
+
+            FOREIGN KEY (program_id)
+                REFERENCES PROGRAM(program_id)
+                ON DELETE CASCADE
+        );
+
+
     """)
 
     connection.close()
@@ -434,3 +458,77 @@ def get_dashboard_stats():
         "total_programs": total_programs,
         "total_saved": total_saved
     }
+
+
+
+def add_application(program_id, status, deadline, notes):
+    connection = create_connection()
+
+    connection.execute("""
+        INSERT INTO APPLICATION
+            (program_id, application_status, deadline, notes)
+        VALUES (?, ?, ?, ?)
+    """, (program_id, status, deadline, notes))
+
+    connection.commit()
+    connection.close()
+
+
+def get_applications():
+    connection = create_connection()
+
+    applications = connection.execute("""
+        SELECT
+            APPLICATION.application_id,
+            APPLICATION.program_id,
+            APPLICATION.application_status,
+            APPLICATION.deadline,
+            APPLICATION.notes,
+            APPLICATION.updated_at,
+            PROGRAM.name AS program_name,
+            UNIVERSITY.name AS university_name,
+            UNIVERSITY.country
+
+        FROM APPLICATION
+
+        INNER JOIN PROGRAM
+        ON APPLICATION.program_id = PROGRAM.program_id
+
+        INNER JOIN UNIVERSITY
+        ON PROGRAM.university_id = UNIVERSITY.university_id
+
+        ORDER BY APPLICATION.deadline ASC
+    """).fetchall()
+
+    connection.close()
+
+    return applications
+
+
+def update_application(application_id, status, deadline, notes):
+    connection = create_connection()
+
+    connection.execute("""
+        UPDATE APPLICATION
+        SET
+            application_status = ?,
+            deadline = ?,
+            notes = ?,
+            updated_at = CURRENT_TIMESTAMP
+        WHERE application_id = ?
+    """, (status, deadline, notes, application_id))
+
+    connection.commit()
+    connection.close()
+
+
+def delete_application(application_id):
+    connection = create_connection()
+
+    connection.execute("""
+        DELETE FROM APPLICATION
+        WHERE application_id = ?
+    """, (application_id,))
+
+    connection.commit()
+    connection.close()
