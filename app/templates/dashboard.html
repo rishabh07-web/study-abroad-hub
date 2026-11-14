@@ -6,84 +6,287 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Student Dashboard - Study Abroad Hub</title>
+    <title>Student Dashboard | Study Abroad Hub</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
-<body>
+<body class="student-dashboard-page">
 
-    <header>
-        <h1>Study Abroad Hub</h1>
-        <p>Your study abroad planning dashboard.</p>
+    <!-- Navigation Bar -->
+    <header class="home-header">
 
-        <nav>
-            <a href="{{ url_for('home') }}">Home</a>
-            <a href="{{ url_for('programs_page') }}">Explore Programs</a>
-            <a href="{{ url_for('eligibility_page') }}">Eligibility Checker</a>
-            <a href="{{ url_for('compare_page') }}">Compare Programs</a>
-            <a href="{{ url_for('saved_programs_page') }}">Saved Programs</a>
-            <a href="{{ url_for('dashboard_page') }}">Dashboard</a>
-            <a href="{{ url_for('applications_page') }}">Applications</a>
-        </nav>
+        <div class="home-navbar">
+
+            <a href="{{ url_for('home') }}" class="home-brand">
+                <span class="brand-icon">✦</span>
+                Study Abroad <span>Hub</span>
+            </a>
+
+            <nav class="home-nav">
+                <a href="{{ url_for('home') }}">Home</a>
+                <a href="{{ url_for('programs_page') }}">Programs</a>
+                <a href="{{ url_for('eligibility_page') }}">Eligibility</a>
+                <a href="{{ url_for('compare_page') }}">Compare</a>
+                <a href="{{ url_for('saved_programs_page') }}">Saved</a>
+                <a href="{{ url_for('applications_page') }}">Applications</a>
+                <a href="{{ url_for('dashboard_page') }}"
+                   class="nav-dashboard">Dashboard</a>
+            </nav>
+
+        </div>
+
     </header>
 
-    <div class="page-container">
+    <main class="student-dashboard-main">
 
-        <h2>Student Dashboard</h2>
+        <!-- Dashboard Introduction -->
+        <section class="student-dashboard-intro">
 
-        <p>Overview of your study abroad planning activities.</p>
+            <span class="student-dashboard-tag">
+                YOUR PLANNING OVERVIEW
+            </span>
 
-        <!-- Dashboard Statistics -->
+            <h1>
+                Your Study Abroad
+                <span>Dashboard.</span>
+            </h1>
 
-        <div class="dashboard-stats">
+            <p>
+                Explore your university options, review available
+                programs and manage your study abroad planning
+                from one convenient place.
+            </p>
 
-            <div class="stat-card">
-                <h3>{{ stats["total_universities"] }}</h3>
-                <p>Total Universities</p>
+        </section>
+
+        <!-- Dashboard Content -->
+        <section class="student-dashboard-content">
+
+            <div class="student-dashboard-section-heading">
+
+                <div>
+                    <span class="student-dashboard-tag">
+                        AT A GLANCE
+                    </span>
+
+                    <h2>Overview Statistics</h2>
+
+                    <p>
+                        A quick summary of the information
+                        available in Study Abroad Hub.
+                    </p>
+                </div>
+
             </div>
 
-            <div class="stat-card">
-                <h3>{{ stats["total_programs"] }}</h3>
-                <p>Available Programs</p>
+            <!-- Statistics -->
+            <div class="student-stat-grid">
+
+                <!-- Universities -->
+                <div class="student-stat-card">
+
+                    <div class="student-stat-top">
+                        <span class="student-stat-icon">🏛️</span>
+                        <span class="student-stat-label">UNIVERSITIES</span>
+                    </div>
+
+                    <h3>{{ stats["total_universities"] }}</h3>
+
+                    <p>Total Universities</p>
+
+                    <div class="student-stat-bottom">
+                        Institutions in our database
+                    </div>
+
+                </div>
+
+                <!-- Programs -->
+                <div class="student-stat-card">
+
+                    <div class="student-stat-top">
+                        <span class="student-stat-icon">🎓</span>
+                        <span class="student-stat-label">PROGRAMS</span>
+                    </div>
+
+                    <h3>{{ stats["total_programs"] }}</h3>
+
+                    <p>Available Programs</p>
+
+                    <div class="student-stat-bottom">
+                        Academic programs to explore
+                    </div>
+
+                </div>
+
+                <!-- Saved Programs -->
+                <div class="student-stat-card">
+
+                    <div class="student-stat-top">
+                        <span class="student-stat-icon">🔖</span>
+                        <span class="student-stat-label">SAVED</span>
+                    </div>
+
+                    <h3>{{ stats["total_saved"] }}</h3>
+
+                    <p>Saved Programs</p>
+
+                    <div class="student-stat-bottom">
+                        Programs on your shortlist
+                    </div>
+
+                </div>
+
             </div>
 
-            <div class="stat-card">
-                <h3>{{ stats["total_saved"] }}</h3>
-                <p>Saved Programs</p>
+            <!-- Quick Access -->
+            <div class="student-dashboard-section-heading quick-heading">
+
+                <div>
+                    <span class="student-dashboard-tag">
+                        QUICK NAVIGATION
+                    </span>
+
+                    <h2>Quick Access</h2>
+
+                    <p>
+                        Jump directly to the tools you need.
+                    </p>
+                </div>
+
             </div>
 
+            <div class="student-quick-grid">
+
+                <a href="{{ url_for('programs_page') }}"
+                   class="student-quick-card">
+
+                    <div class="student-quick-icon">🎓</div>
+
+                    <h3>Explore Programs</h3>
+
+                    <p>
+                        Browse academic programs from
+                        available universities.
+                    </p>
+
+                    <span>Explore Programs →</span>
+
+                </a>
+
+                <a href="{{ url_for('eligibility_page') }}"
+                   class="student-quick-card">
+
+                    <div class="student-quick-icon">✅</div>
+
+                    <h3>Eligibility Checker</h3>
+
+                    <p>
+                        Check your qualifications against
+                        listed program requirements.
+                    </p>
+
+                    <span>Check Eligibility →</span>
+
+                </a>
+
+                <a href="{{ url_for('compare_page') }}"
+                   class="student-quick-card">
+
+                    <div class="student-quick-icon">⚖️</div>
+
+                    <h3>Compare Programs</h3>
+
+                    <p>
+                        Review academic programs side
+                        by side.
+                    </p>
+
+                    <span>Compare Programs →</span>
+
+                </a>
+
+                <a href="{{ url_for('saved_programs_page') }}"
+                   class="student-quick-card">
+
+                    <div class="student-quick-icon">🔖</div>
+
+                    <h3>Saved Programs</h3>
+
+                    <p>
+                        Revisit your preferred
+                        study abroad programs.
+                    </p>
+
+                    <span>View Saved →</span>
+
+                </a>
+
+                <a href="{{ url_for('applications_page') }}"
+                   class="student-quick-card">
+
+                    <div class="student-quick-icon">📅</div>
+
+                    <h3>Application Tracker</h3>
+
+                    <p>
+                        Track application statuses,
+                        deadlines and notes.
+                    </p>
+
+                    <span>Track Applications →</span>
+
+                </a>
+
+                <a href="{{ url_for('home') }}"
+                   class="student-quick-card">
+
+                    <div class="student-quick-icon">🌍</div>
+
+                    <h3>Study Abroad Hub</h3>
+
+                    <p>
+                        Return to the homepage
+                        and explore all features.
+                    </p>
+
+                    <span>Back to Home →</span>
+
+                </a>
+
+            </div>
+
+            <!-- Dashboard Notice -->
+            <div class="student-dashboard-notice">
+
+                <strong>About Your Dashboard</strong>
+
+                <p>
+                    These statistics are generated from the
+                    Study Abroad Hub SQLite database.
+                    University and program records are demonstration
+                    data used for this academic project.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="home-footer">
+
+        <div>
+            <strong>✦ Study Abroad Hub</strong>
+            <p>Student Decision Support System</p>
         </div>
 
-        <!-- Quick Access -->
+        <p>
+            Helping students make informed education decisions.
+        </p>
 
-        <h2>Quick Access</h2>
-
-        <div class="dashboard-links">
-
-            <a href="{{ url_for('programs_page') }}" class="dashboard-link">
-                Explore Programs
-            </a>
-
-            <a href="{{ url_for('eligibility_page') }}" class="dashboard-link">
-                Check Eligibility
-            </a>
-
-            <a href="{{ url_for('compare_page') }}" class="dashboard-link">
-                Compare Programs
-            </a>
-
-            <a href="{{ url_for('saved_programs_page') }}" class="dashboard-link">
-                View Saved Programs
-            </a>
-
-        </div>
-
-    </div>
-
-    <footer>
-        <p>Study Abroad Hub | Student Decision Support System</p>
     </footer>
 
 </body>

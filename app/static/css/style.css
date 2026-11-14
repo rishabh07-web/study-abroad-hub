@@ -3370,3 +3370,354 @@ footer {
         text-align: center;
     }
 }
+
+
+
+/* ==========================================
+   STUDENT DASHBOARD PAGE
+   ========================================== */
+
+.student-dashboard-page {
+    background: #f5f8fc;
+    color: #102a43;
+    font-family: Arial, sans-serif;
+}
+
+/* Navigation */
+
+.student-dashboard-page .home-header {
+    background: white;
+    padding: 0 6%;
+    text-align: left;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+}
+
+.student-dashboard-page .home-navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 85px;
+    gap: 25px;
+}
+
+.student-dashboard-page .home-brand {
+    font-size: 22px;
+    font-weight: 800;
+    color: #102a43;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.student-dashboard-page .home-brand span:last-child,
+.student-dashboard-page .brand-icon {
+    color: #2563eb;
+}
+
+.student-dashboard-page .home-nav {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.student-dashboard-page .home-nav a {
+    color: #475569;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.student-dashboard-page .home-nav a:hover {
+    color: #2563eb;
+}
+
+.student-dashboard-page .home-nav .nav-dashboard {
+    background: #2563eb;
+    color: white;
+    padding: 11px 18px;
+    border-radius: 8px;
+}
+
+.student-dashboard-page .home-nav .nav-dashboard:hover {
+    background: #1d4ed8;
+    color: white;
+}
+
+/* Main */
+
+.student-dashboard-page .student-dashboard-main {
+    padding: 0;
+    text-align: left;
+}
+
+/* Introduction */
+
+.student-dashboard-intro {
+    text-align: center;
+    padding: 55px 7% 50px;
+    background: linear-gradient(120deg, #eff6ff, #ffffff);
+}
+
+.student-dashboard-tag {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: #2563eb;
+    margin-bottom: 16px;
+}
+
+.student-dashboard-intro h1 {
+    font-size: clamp(34px, 4vw, 52px);
+    color: #102a43;
+    margin-bottom: 18px;
+}
+
+.student-dashboard-intro h1 span {
+    color: #2563eb;
+}
+
+.student-dashboard-intro p {
+    color: #64748b;
+    max-width: 690px;
+    margin: 0 auto;
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+/* Content */
+
+.student-dashboard-content {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 50px 30px 85px;
+}
+
+.student-dashboard-section-heading {
+    margin-bottom: 28px;
+}
+
+.student-dashboard-section-heading .student-dashboard-tag {
+    margin-bottom: 10px;
+}
+
+.student-dashboard-section-heading h2 {
+    font-size: 29px;
+    color: #102a43;
+    margin-bottom: 10px;
+}
+
+.student-dashboard-section-heading p {
+    color: #64748b;
+    font-size: 14px;
+}
+
+/* Statistics */
+
+.student-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 25px;
+}
+
+.student-stat-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 15px;
+    padding: 28px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.student-stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+}
+
+.student-stat-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.student-stat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 55px;
+    height: 55px;
+    background: #eff6ff;
+    border-radius: 12px;
+    font-size: 27px;
+}
+
+.student-stat-label {
+    color: #2563eb;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.student-stat-card h3 {
+    color: #102a43;
+    font-size: 44px;
+    margin-bottom: 7px;
+}
+
+.student-stat-card > p {
+    color: #475569;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+
+.student-stat-bottom {
+    border-top: 1px solid #e2e8f0;
+    padding-top: 18px;
+    color: #94a3b8;
+    font-size: 12px;
+}
+
+/* Quick Access */
+
+.quick-heading {
+    margin-top: 65px;
+}
+
+.student-quick-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 25px;
+}
+
+.student-quick-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 15px;
+    padding: 28px;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.student-quick-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+}
+
+.student-quick-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #eff6ff;
+    border-radius: 12px;
+    width: 55px;
+    height: 55px;
+    font-size: 27px;
+    margin-bottom: 20px;
+}
+
+.student-quick-card h3 {
+    color: #102a43;
+    font-size: 19px;
+    margin-bottom: 12px;
+}
+
+.student-quick-card p {
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 22px;
+}
+
+.student-quick-card > span {
+    display: block;
+    margin-top: auto;
+    padding-top: 10px;
+    color: #2563eb;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+/* Dashboard Notice */
+
+.student-dashboard-notice {
+    margin-top: 40px;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 12px;
+    padding: 23px 25px;
+}
+
+.student-dashboard-notice strong {
+    display: block;
+    color: #1d4ed8;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.student-dashboard-notice p {
+    color: #475569;
+    font-size: 13px;
+    line-height: 1.8;
+    margin: 0;
+}
+
+/* Footer */
+
+.student-dashboard-page .home-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 35px 7%;
+    background: #102a43;
+    color: white;
+    text-align: left;
+}
+
+.student-dashboard-page .home-footer p {
+    color: #cbd5e1;
+    font-size: 13px;
+    margin: 8px 0 0;
+}
+
+/* Responsive */
+
+@media (max-width: 1050px) {
+    .student-dashboard-page .home-navbar {
+        flex-direction: column;
+        padding: 20px 0;
+    }
+
+    .student-dashboard-page .home-nav {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 800px) {
+    .student-stat-grid,
+    .student-quick-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 550px) {
+    .student-dashboard-content {
+        padding: 35px 6% 60px;
+    }
+
+    .student-stat-grid,
+    .student-quick-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .student-dashboard-page .home-footer {
+        flex-direction: column;
+        text-align: center;
+    }
+}
