@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,115 +6,292 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Comparison Results - Study Abroad Hub</title>
+    <title>Comparison Results | Study Abroad Hub</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
-<body>
+<body class="compare-page comparison-result-page">
 
-    <header>
-        <h1>Study Abroad Hub</h1>
-        <p>Compare your selected study programs.</p>
+    <!-- Navigation Bar -->
+    <header class="home-header">
 
-        <nav>
-            <a href="{{ url_for('home') }}">Home</a>
-            <a href="{{ url_for('programs_page') }}">Explore Programs</a>
-            <a href="{{ url_for('eligibility_page') }}">Eligibility Checker</a>
-            <a href="{{ url_for('compare_page') }}">Compare Programs</a>
-            <a href="{{ url_for('saved_programs_page') }}">Saved Programs</a>
-            <a href="{{ url_for('dashboard_page') }}">Dashboard</a>
-            <a href="{{ url_for('applications_page') }}">Applications</a>
-        </nav>
-    </header>
+        <div class="home-navbar">
 
-    <div class="page-container">
+            <a href="{{ url_for('home') }}" class="home-brand">
+                <span class="brand-icon">✦</span>
+                Study Abroad <span>Hub</span>
+            </a>
 
-        <h2>Program Comparison</h2>
-
-        <div class="comparison-container">
-
-            <table class="comparison-table">
-
-                <thead>
-                    <tr>
-                        <th>Criteria</th>
-                        <th>{{ program1["program_name"] }}</th>
-                        <th>{{ program2["program_name"] }}</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                    <tr>
-                        <th>University</th>
-                        <td>{{ program1["university_name"] }}</td>
-                        <td>{{ program2["university_name"] }}</td>
-                    </tr>
-
-                    <tr>
-                        <th>Country</th>
-                        <td>{{ program1["country"] }}</td>
-                        <td>{{ program2["country"] }}</td>
-                    </tr>
-
-                    <tr>
-                        <th>City</th>
-                        <td>{{ program1["city"] }}</td>
-                        <td>{{ program2["city"] }}</td>
-                    </tr>
-
-                    <tr>
-                        <th>Degree</th>
-                        <td>{{ program1["degree"] }}</td>
-                        <td>{{ program2["degree"] }}</td>
-                    </tr>
-
-                    <tr>
-                        <th>Field</th>
-                        <td>{{ program1["field"] }}</td>
-                        <td>{{ program2["field"] }}</td>
-                    </tr>
-
-                    <tr>
-                        <th>Tuition Fees</th>
-                        <td>{{ program1["tuition"] }}</td>
-                        <td>{{ program2["tuition"] }}</td>
-                    </tr>
-
-                    <tr>
-                        <th>Duration</th>
-                        <td>{{ program1["duration"] }}</td>
-                        <td>{{ program2["duration"] }}</td>
-                    </tr>
-
-                    <tr>
-                        <th>Minimum CGPA</th>
-                        <td>{{ program1["min_cgpa"] }}</td>
-                        <td>{{ program2["min_cgpa"] }}</td>
-                    </tr>
-
-                    <tr>
-                        <th>Minimum IELTS</th>
-                        <td>{{ program1["min_ielts"] }}</td>
-                        <td>{{ program2["min_ielts"] }}</td>
-                    </tr>
-
-                </tbody>
-
-            </table>
+            <nav class="home-nav">
+                <a href="{{ url_for('home') }}">Home</a>
+                <a href="{{ url_for('programs_page') }}">Programs</a>
+                <a href="{{ url_for('eligibility_page') }}">Eligibility</a>
+                <a href="{{ url_for('compare_page') }}" class="active">
+                    Compare
+                </a>
+                <a href="{{ url_for('saved_programs_page') }}">Saved</a>
+                <a href="{{ url_for('applications_page') }}">Applications</a>
+                <a href="{{ url_for('dashboard_page') }}"
+                   class="nav-dashboard">
+                    Dashboard
+                </a>
+            </nav>
 
         </div>
 
-        <a href="{{ url_for('compare_page') }}" class="btn">
-            Compare Other Programs
-        </a>
+    </header>
 
-    </div>
+    <main class="compare-main">
 
-    <footer>
-        <p>Study Abroad Hub | Student Decision Support System</p>
+        <!-- Page Introduction -->
+        <section class="compare-intro">
+
+            <span class="compare-tag">
+                SIDE-BY-SIDE COMPARISON
+            </span>
+
+            <h1>
+                Your Program
+                <span>Comparison.</span>
+            </h1>
+
+            <p>
+                Explore the differences between your selected
+                study programs and make an informed decision.
+            </p>
+
+        </section>
+
+        <!-- Comparison Content -->
+        <section class="comparison-result-content">
+
+            <!-- Section Heading -->
+            <div class="comparison-result-heading">
+
+                <div>
+                    <span class="compare-tag">YOUR SELECTED OPTIONS</span>
+                    <h2>Programs at a Glance</h2>
+                </div>
+
+                <a href="{{ url_for('compare_page') }}"
+                   class="comparison-change-btn">
+                    Change Programs
+                </a>
+
+            </div>
+
+            <!-- Program Summary Cards -->
+            <div class="comparison-summary-grid">
+
+                <!-- Program 1 -->
+                <div class="comparison-summary-card">
+
+                    <span class="comparison-program-label">
+                        PROGRAM 01
+                    </span>
+
+                    <div class="comparison-summary-icon">🎓</div>
+
+                    <h3>{{ program1["program_name"] }}</h3>
+
+                    <p class="comparison-summary-university">
+                        {{ program1["university_name"] }}
+                    </p>
+
+                    <div class="comparison-summary-meta">
+
+                        <span>📍 {{ program1["country"] }}</span>
+
+                        <span>📚 {{ program1["degree"] }}</span>
+
+                    </div>
+
+                </div>
+
+                <!-- VS -->
+                <div class="comparison-summary-vs">VS</div>
+
+                <!-- Program 2 -->
+                <div class="comparison-summary-card">
+
+                    <span class="comparison-program-label">
+                        PROGRAM 02
+                    </span>
+
+                    <div class="comparison-summary-icon">🌍</div>
+
+                    <h3>{{ program2["program_name"] }}</h3>
+
+                    <p class="comparison-summary-university">
+                        {{ program2["university_name"] }}
+                    </p>
+
+                    <div class="comparison-summary-meta">
+
+                        <span>📍 {{ program2["country"] }}</span>
+
+                        <span>📚 {{ program2["degree"] }}</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Detailed Comparison -->
+            <div class="comparison-details-card">
+
+                <div class="comparison-details-heading">
+
+                    <div class="comparison-details-icon">📊</div>
+
+                    <div>
+                        <h2>Detailed Program Comparison</h2>
+
+                        <p>
+                            Review the important academic and
+                            admission-related details.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="comparison-result-table-wrapper">
+
+                    <table class="result-comparison-table">
+
+                        <thead>
+                            <tr>
+                                <th scope="col">Comparison Criteria</th>
+
+                                <th scope="col">
+                                    {{ program1["program_name"] }}
+                                </th>
+
+                                <th scope="col">
+                                    {{ program2["program_name"] }}
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+                                <th scope="row">🏛️ University</th>
+                                <td>{{ program1["university_name"] }}</td>
+                                <td>{{ program2["university_name"] }}</td>
+                            </tr>
+
+                            <tr>
+                                <th scope="row">🌍 Country</th>
+                                <td>{{ program1["country"] }}</td>
+                                <td>{{ program2["country"] }}</td>
+                            </tr>
+
+                            <tr>
+                                <th scope="row">📍 City</th>
+                                <td>{{ program1["city"] }}</td>
+                                <td>{{ program2["city"] }}</td>
+                            </tr>
+
+                            <tr>
+                                <th scope="row">🎓 Degree Level</th>
+                                <td>{{ program1["degree"] }}</td>
+                                <td>{{ program2["degree"] }}</td>
+                            </tr>
+
+                            <tr>
+                                <th scope="row">📚 Field of Study</th>
+                                <td>{{ program1["field"] }}</td>
+                                <td>{{ program2["field"] }}</td>
+                            </tr>
+
+                            <tr>
+                                <th scope="row">💰 Listed Tuition</th>
+
+                                <td>
+                                    {{ "{:,.0f}".format(program1["tuition"]) if program1["tuition"] is not none else "Not available" }}
+                                </td>
+
+                                <td>
+                                    {{ "{:,.0f}".format(program2["tuition"]) if program2["tuition"] is not none else "Not available" }}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th scope="row">⏳ Duration</th>
+                                <td>{{ program1["duration"] }}</td>
+                                <td>{{ program2["duration"] }}</td>
+                            </tr>
+
+                            <tr>
+                                <th scope="row">📈 Minimum CGPA</th>
+                                <td>{{ program1["min_cgpa"] }} / 10</td>
+                                <td>{{ program2["min_cgpa"] }} / 10</td>
+                            </tr>
+
+                            <tr>
+                                <th scope="row">📝 Minimum IELTS</th>
+                                <td>{{ program1["min_ielts"] }} / 9</td>
+                                <td>{{ program2["min_ielts"] }} / 9</td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+            <!-- Important Information -->
+            <div class="comparison-result-notice">
+
+                <strong>Important Information</strong>
+
+                <p>
+                    This comparison uses the program information stored
+                    in our demonstration database. Tuition amounts do
+                    not have verified currency units, and admission
+                    criteria may change. Always consult official
+                    university sources before making an application.
+                </p>
+
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="comparison-result-actions">
+
+                <a href="{{ url_for('compare_page') }}"
+                   class="comparison-primary-btn">
+                    Compare Other Programs →
+                </a>
+
+                <a href="{{ url_for('programs_page') }}"
+                   class="comparison-secondary-btn">
+                    Explore More Programs
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="home-footer">
+
+        <div>
+            <strong>✦ Study Abroad Hub</strong>
+            <p>Student Decision Support System</p>
+        </div>
+
+        <p>
+            Helping students make informed education decisions.
+        </p>
+
     </footer>
 
 </body>

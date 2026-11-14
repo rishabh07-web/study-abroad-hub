@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,80 +6,276 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Compare Programs - Study Abroad Hub</title>
+    <title>Compare Programs | Study Abroad Hub</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
-<body>
+<body class="compare-page">
 
-    <header>
-        <h1>Study Abroad Hub</h1>
-        <p>Compare programs and make informed decisions.</p>
+    <!-- Navigation -->
+    <header class="home-header">
 
-        <nav>
-            <a href="{{ url_for('home') }}">Home</a>
-            <a href="{{ url_for('programs_page') }}">Explore Programs</a>
-            <a href="{{ url_for('eligibility_page') }}">Eligibility Checker</a>
-            <a href="{{ url_for('compare_page') }}">Compare Programs</a>
-            <a href="{{ url_for('saved_programs_page') }}">Saved Programs</a>
-            <a href="{{ url_for('dashboard_page') }}">Dashboard</a>
-            <a href="{{ url_for('applications_page') }}">Applications</a>
-        </nav>
+        <div class="home-navbar">
+
+            <a href="{{ url_for('home') }}" class="home-brand">
+                <span class="brand-icon">✦</span>
+                Study Abroad <span>Hub</span>
+            </a>
+
+            <nav class="home-nav">
+                <a href="{{ url_for('home') }}">Home</a>
+
+                <a href="{{ url_for('programs_page') }}">
+                    Programs
+                </a>
+
+                <a href="{{ url_for('eligibility_page') }}">
+                    Eligibility
+                </a>
+
+                <a href="{{ url_for('compare_page') }}" class="active">
+                    Compare
+                </a>
+
+                <a href="{{ url_for('saved_programs_page') }}">
+                    Saved
+                </a>
+
+                <a href="{{ url_for('applications_page') }}">
+                    Applications
+                </a>
+
+                <a href="{{ url_for('dashboard_page') }}"
+                   class="nav-dashboard">
+                    Dashboard
+                </a>
+            </nav>
+
+        </div>
+
     </header>
 
-    <div class="page-container">
+    <main class="compare-main">
 
-        <h2>Compare Study Programs</h2>
+        <!-- Introduction -->
+        <section class="compare-intro">
 
-        <p>Select two programs to compare their details.</p>
+            <span class="compare-tag">
+                MAKE INFORMED DECISIONS
+            </span>
 
-        <form method="POST" class="search-form">
+            <h1>
+                Compare Your
+                <span>Study Options.</span>
+            </h1>
 
-            <label for="program1">First Program:</label>
+            <p>
+                Compare two academic programs side by side
+                to understand their differences in tuition,
+                duration and admission requirements.
+            </p>
 
-            <select name="program1" id="program1" required>
+        </section>
 
-                <option value="">Select First Program</option>
+        <!-- Comparison Form -->
+        <section class="compare-content">
 
-                {% for program in programs %}
+            <div class="compare-form-card">
 
-                    <option value="{{ program['program_id'] }}">
-                        {{ program['program_name'] }} -
-                        {{ program['university_name'] }}
-                    </option>
+                <div class="compare-form-heading">
+                    <div class="compare-heading-icon">⚖️</div>
 
-                {% endfor %}
+                    <h2>Select Programs to Compare</h2>
 
-            </select>
+                    <p>
+                        Choose two different programs from
+                        the available options below.
+                    </p>
+                </div>
 
-            <label for="program2">Second Program:</label>
+                <form method="POST"
+                      class="modern-compare-form"
+                      onsubmit="return validateComparison()">
 
-            <select name="program2" id="program2" required>
+                    <div class="compare-selection-grid">
 
-                <option value="">Select Second Program</option>
+                        <!-- First Program -->
+                        <div class="compare-selection-card">
 
-                {% for program in programs %}
+                            <span class="compare-selection-label">
+                                PROGRAM 01
+                            </span>
 
-                    <option value="{{ program['program_id'] }}">
-                        {{ program['program_name'] }} -
-                        {{ program['university_name'] }}
-                    </option>
+                            <div class="compare-selection-icon">🎓</div>
 
-                {% endfor %}
+                            <h3>First Program</h3>
 
-            </select>
+                            <p>
+                                Select your first study option.
+                            </p>
 
-            <button type="submit">Compare Programs</button>
+                            <label for="program1">
+                                Choose Program
+                            </label>
 
-        </form>
+                            <select name="program1"
+                                    id="program1"
+                                    required>
 
-    </div>
+                                <option value="">
+                                    Select First Program
+                                </option>
 
-    <footer>
-        <p>Study Abroad Hub | Student Decision Support System</p>
+                                {% for program in programs %}
+
+                                    <option value="{{ program['program_id'] }}">
+                                        {{ program['program_name'] }}
+                                        -
+                                        {{ program['university_name'] }}
+                                    </option>
+
+                                {% endfor %}
+
+                            </select>
+
+                        </div>
+
+                        <!-- VS -->
+                        <div class="compare-vs">VS</div>
+
+                        <!-- Second Program -->
+                        <div class="compare-selection-card">
+
+                            <span class="compare-selection-label">
+                                PROGRAM 02
+                            </span>
+
+                            <div class="compare-selection-icon">🌍</div>
+
+                            <h3>Second Program</h3>
+
+                            <p>
+                                Select your second study option.
+                            </p>
+
+                            <label for="program2">
+                                Choose Program
+                            </label>
+
+                            <select name="program2"
+                                    id="program2"
+                                    required>
+
+                                <option value="">
+                                    Select Second Program
+                                </option>
+
+                                {% for program in programs %}
+
+                                    <option value="{{ program['program_id'] }}">
+                                        {{ program['program_name'] }}
+                                        -
+                                        {{ program['university_name'] }}
+                                    </option>
+
+                                {% endfor %}
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                    <div class="compare-form-actions">
+
+                        <button type="submit"
+                                class="compare-submit-btn">
+                            Compare Programs →
+                        </button>
+
+                    </div>
+
+                    <p id="compare-error"
+                       class="compare-error"
+                       role="alert"
+                       hidden>
+                        Please select two different programs.
+                    </p>
+
+                </form>
+
+            </div>
+
+            <!-- Information -->
+            <div class="compare-info-card">
+
+                <h2>What Can You Compare?</h2>
+
+                <div class="compare-info-grid">
+
+                    <div class="compare-info-item">
+                        <span>🏛️</span>
+                        <strong>Universities</strong>
+                        <p>Compare institutions and locations.</p>
+                    </div>
+
+                    <div class="compare-info-item">
+                        <span>💰</span>
+                        <strong>Tuition Fees</strong>
+                        <p>Review the listed tuition amounts.</p>
+                    </div>
+
+                    <div class="compare-info-item">
+                        <span>⏳</span>
+                        <strong>Duration</strong>
+                        <p>Compare program lengths.</p>
+                    </div>
+
+                    <div class="compare-info-item">
+                        <span>📋</span>
+                        <strong>Requirements</strong>
+                        <p>Compare minimum CGPA and IELTS scores.</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="home-footer">
+
+        <div>
+            <strong>✦ Study Abroad Hub</strong>
+            <p>Student Decision Support System</p>
+        </div>
+
+        <p>
+            Helping students make informed education decisions.
+        </p>
+
     </footer>
+
+    <script>
+        function validateComparison() {
+            const first = document.getElementById("program1").value;
+            const second = document.getElementById("program2").value;
+            const error = document.getElementById("compare-error");
+
+            if (first === second) {
+                error.hidden = false;
+                return false;
+            }
+
+            error.hidden = true;
+            return true;
+        }
+    </script>
 
 </body>
 </html>
