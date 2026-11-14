@@ -6,112 +6,253 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Edit Application - Study Abroad Hub</title>
+    <title>Edit Application | Study Abroad Hub</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
-<body>
+<body class="edit-application-page tracker-page">
 
-    <header>
-        <h1>Study Abroad Hub</h1>
-        <p>Update your application details.</p>
+    <!-- Navigation -->
+    <header class="home-header">
+        <div class="home-navbar">
 
-        <nav>
-            <a href="{{ url_for('home') }}">Home</a>
-            <a href="{{ url_for('programs_page') }}">Explore Programs</a>
-            <a href="{{ url_for('applications_page') }}">Applications</a>
-            <a href="{{ url_for('dashboard_page') }}">Dashboard</a>
-        </nav>
-    </header>
-
-    <div class="page-container">
-
-        <h2>Edit Application</h2>
-
-        <p>
-            <strong>Program:</strong>
-            {{ application["program_name"] }}
-        </p>
-
-        <p>
-            <strong>University:</strong>
-            {{ application["university_name"] }}
-        </p>
-
-        <form method="POST" class="application-form">
-
-            <label for="status">Application Status</label>
-
-            <select name="status" id="status" required>
-
-                {% for status in [
-                    "Not Applied",
-                    "Applied",
-                    "Under Review",
-                    "Accepted",
-                    "Rejected"
-                ] %}
-
-                    <option
-                        value="{{ status }}"
-                        {% if application["application_status"] == status %}
-                            selected
-                        {% endif %}
-                    >
-                        {{ status }}
-                    </option>
-
-                {% endfor %}
-
-            </select>
-
-            <label for="deadline">Application Deadline</label>
-
-            <input
-                type="date"
-                name="deadline"
-                id="deadline"
-                value="{{ application['deadline'] or '' }}"
-            >
-
-            <label for="notes">Notes</label>
-
-            <textarea
-                name="notes"
-                id="notes"
-                rows="4"
-            >{{ application["notes"] or "" }}</textarea>
-
-            <button type="submit">Save Changes</button>
-
-            <a href="{{ url_for('applications_page') }}" class="btn">
-                Cancel
+            <a href="{{ url_for('home') }}" class="home-brand">
+                <span class="brand-icon">✦</span>
+                Study Abroad <span>Hub</span>
             </a>
 
-        </form>
+            <nav class="home-nav">
+                <a href="{{ url_for('home') }}">Home</a>
+                <a href="{{ url_for('programs_page') }}">Programs</a>
+                <a href="{{ url_for('eligibility_page') }}">Eligibility</a>
+                <a href="{{ url_for('compare_page') }}">Compare</a>
+                <a href="{{ url_for('saved_programs_page') }}">Saved</a>
+                <a href="{{ url_for('applications_page') }}"
+                   class="active">Applications</a>
+                <a href="{{ url_for('dashboard_page') }}"
+                   class="nav-dashboard">Dashboard</a>
+            </nav>
 
-    </div>
+        </div>
+    </header>
 
-    <footer>
-        <p>Study Abroad Hub | Student Decision Support System</p>
+    <main class="edit-application-main">
+
+        <!-- Page Introduction -->
+        <section class="edit-application-intro">
+
+            <span class="tracker-tag">
+                MANAGE YOUR APPLICATION
+            </span>
+
+            <h1>
+                Edit Your
+                <span>Application.</span>
+            </h1>
+
+            <p>
+                Update your application status, deadline
+                and important notes to keep your records organized.
+            </p>
+
+        </section>
+
+        <section class="edit-application-content">
+
+            <!-- Selected Program Information -->
+            <div class="edit-program-card">
+
+                <div class="edit-program-icon">🎓</div>
+
+                <div>
+                    <span class="edit-program-label">
+                        SELECTED STUDY PROGRAM
+                    </span>
+
+                    <h2>{{ application["program_name"] }}</h2>
+
+                    <p>
+                        {{ application["university_name"] }}
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- Edit Application Form -->
+            <div class="edit-form-card">
+
+                <div class="edit-form-heading">
+
+                    <div class="edit-heading-icon">📝</div>
+
+                    <div>
+                        <h2>Update Application Details</h2>
+
+                        <p>
+                            Modify the information below
+                            and save your changes.
+                        </p>
+                    </div>
+
+                </div>
+
+                <form method="POST" class="edit-application-form">
+
+                    <!-- Application Status -->
+                    <div class="edit-field">
+
+                        <label for="status">
+                            Application Status
+                        </label>
+
+                        <select name="status"
+                                id="status"
+                                required>
+
+                            {% for status in [
+                                "Not Applied",
+                                "Applied",
+                                "Under Review",
+                                "Accepted",
+                                "Rejected"
+                            ] %}
+
+                                <option value="{{ status }}"
+                                    {% if application["application_status"] == status %}
+                                        selected
+                                    {% endif %}>
+                                    {{ status }}
+                                </option>
+
+                            {% endfor %}
+
+                        </select>
+
+                        <small>
+                            Select the current progress
+                            of this application.
+                        </small>
+
+                    </div>
+
+                    <!-- Application Deadline -->
+                    <div class="edit-field">
+
+                        <label for="deadline">
+                            Application Deadline
+                        </label>
+
+                        <input
+                            type="date"
+                            name="deadline"
+                            id="deadline"
+                            value="{{ application['deadline'] or '' }}"
+                        >
+
+                        <small>
+                            Update the deadline if necessary.
+                        </small>
+
+                    </div>
+
+                    <!-- Notes -->
+                    <div class="edit-field">
+
+                        <label for="notes">
+                            Important Notes
+                        </label>
+
+                        <textarea
+                            name="notes"
+                            id="notes"
+                            rows="5"
+                            placeholder="Add any important application updates..."
+                        >{{ application["notes"] or "" }}</textarea>
+
+                        <small>
+                            Keep track of documents, updates
+                            and other important information.
+                        </small>
+
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="edit-form-actions">
+
+                        <button type="submit"
+                                class="edit-save-btn">
+                            Save Changes →
+                        </button>
+
+                        <a href="{{ url_for('applications_page') }}"
+                           class="edit-cancel-btn">
+                            Cancel
+                        </a>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+            <!-- Information Notice -->
+            <div class="edit-info-notice">
+
+                <strong>Keep Your Application Updated</strong>
+
+                <p>
+                    Application details are stored in the
+                    Study Abroad Hub database. Remember to verify
+                    deadlines and admission updates directly
+                    with the university.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="home-footer">
+
+        <div>
+            <strong>✦ Study Abroad Hub</strong>
+            <p>Student Decision Support System</p>
+        </div>
+
+        <p>
+            Helping students make informed education decisions.
+        </p>
+
     </footer>
 
+    <!-- Popup Notifications -->
     {% with messages = get_flashed_messages(with_categories=true) %}
+
         {% if messages %}
 
-            <div id="popup-message" class="popup-message" role="alert">
+            <div id="popup-message"
+                 class="tracker-popup"
+                 role="alert">
+
+                <div class="tracker-popup-icon">!</div>
 
                 {% for category, message in messages %}
                     <p>{{ message }}</p>
                 {% endfor %}
 
-                <button type="button" onclick="closePopup()">OK</button>
+                <button type="button"
+                        onclick="closePopup()">
+                    OK
+                </button>
 
             </div>
 
         {% endif %}
+
     {% endwith %}
 
     <script>
