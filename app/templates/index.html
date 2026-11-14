@@ -1,55 +1,195 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Study Abroad Hub</title>
-
+    <title>Study Abroad Hub | Your Global Education Journey</title>
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
-<body>
+<body class="home-page">
 
-    <!-- Navigation Bar -->
-    <header>
-        <h1>Study Abroad Hub</h1>
-        <p>Your journey towards international education starts here.</p>
+    <!-- Navigation -->
+    <header class="home-header">
+        <div class="home-navbar">
+            <a href="{{ url_for('home') }}" class="home-brand">
+                <span class="brand-icon">✦</span>
+                Study Abroad <span>Hub</span>
+            </a>
 
-        <nav>
-            <a href="{{ url_for('home') }}">Home</a>
-            <a href="{{ url_for('programs_page') }}">Explore Programs</a>
-            <a href="{{ url_for('eligibility_page') }}">Eligibility Checker</a>
-            <a href="{{ url_for('compare_page') }}">Compare Programs</a>
-            <a href="{{ url_for('saved_programs_page') }}">Saved Programs</a>
-            <a href="{{ url_for('dashboard_page') }}">Dashboard</a>
-            <a href="{{ url_for('applications_page') }}">Applications</a>
-        </nav>
+            <nav class="home-nav">
+                <a href="{{ url_for('home') }}" class="active">Home</a>
+                <a href="{{ url_for('programs_page') }}">Programs</a>
+                <a href="{{ url_for('eligibility_page') }}">Eligibility</a>
+                <a href="{{ url_for('compare_page') }}">Compare</a>
+                <a href="{{ url_for('saved_programs_page') }}">Saved</a>
+                <a href="{{ url_for('applications_page') }}">Applications</a>
+                <a href="{{ url_for('dashboard_page') }}" class="nav-dashboard">
+                    Dashboard
+                </a>
+            </nav>
+        </div>
     </header>
 
-    <!-- Hero Section -->
-    <main>
+    <main class="home-main">
 
-        <h2>Explore Your Study Abroad Opportunities</h2>
+        <!-- Hero -->
+        <section class="home-hero">
+            <div class="hero-content">
+                <div class="hero-tag">
+                    YOUR GLOBAL EDUCATION JOURNEY
+                </div>
 
-        <p>
-            Discover universities, explore academic programs,
-            compare options and check your eligibility.
-        </p>
+                <h1>
+                    Your Future Has
+                    <span>No Borders.</span>
+                </h1>
 
-        <a href="{{ url_for('programs_page') }}" class="btn">
-            Explore Programs
-        </a>
+                <p>
+                    Explore international universities, discover programs
+                    that match your goals, check eligibility and organize
+                    your applications — all in one place.
+                </p>
+
+                <div class="hero-actions">
+                    <a href="{{ url_for('programs_page') }}"
+                       class="hero-primary">
+                        Explore Programs →
+                    </a>
+
+                    <a href="{{ url_for('eligibility_page') }}"
+                       class="hero-secondary">
+                        Check Eligibility
+                    </a>
+                </div>
+
+                <div class="hero-highlights">
+                    <span>✓ Explore universities</span>
+                    <span>✓ Compare programs</span>
+                    <span>✓ Track applications</span>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="visual-globe">🌍</div>
+
+                <div class="visual-card visual-card-top">
+                    <span>🎓</span>
+                    <div>
+                        <strong>Find Your Program</strong>
+                        <small>Discover opportunities</small>
+                    </div>
+                </div>
+
+                <div class="visual-card visual-card-bottom">
+                    <span>📋</span>
+                    <div>
+                        <strong>Stay Organized</strong>
+                        <small>Track every application</small>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="home-features">
+            <div class="section-heading">
+                <span class="section-tag">OUR FEATURES</span>
+                <h2>Everything You Need in One Place</h2>
+                <p>
+                    Simple tools to help you make informed decisions
+                    about studying abroad.
+                </p>
+            </div>
+
+            <div class="feature-grid">
+
+                <a href="{{ url_for('programs_page') }}" class="feature-card">
+                    <div class="feature-icon">🎓</div>
+                    <h3>Explore Programs</h3>
+                    <p>
+                        Browse universities and academic programs
+                        across different countries.
+                    </p>
+                    <span class="feature-link">Explore →</span>
+                </a>
+
+                <a href="{{ url_for('eligibility_page') }}" class="feature-card">
+                    <div class="feature-icon">✅</div>
+                    <h3>Eligibility Checker</h3>
+                    <p>
+                        Check how your academic qualifications
+                        match program requirements.
+                    </p>
+                    <span class="feature-link">Check Eligibility →</span>
+                </a>
+
+                <a href="{{ url_for('compare_page') }}" class="feature-card">
+                    <div class="feature-icon">⚖️</div>
+                    <h3>Compare Programs</h3>
+                    <p>
+                        Compare tuition fees, duration and
+                        admission requirements side by side.
+                    </p>
+                    <span class="feature-link">Compare →</span>
+                </a>
+
+                <a href="{{ url_for('saved_programs_page') }}" class="feature-card">
+                    <div class="feature-icon">🔖</div>
+                    <h3>Saved Programs</h3>
+                    <p>
+                        Keep your preferred programs together
+                        for easy access.
+                    </p>
+                    <span class="feature-link">View Saved →</span>
+                </a>
+
+                <a href="{{ url_for('applications_page') }}" class="feature-card">
+                    <div class="feature-icon">📅</div>
+                    <h3>Application Tracker</h3>
+                    <p>
+                        Manage application statuses, deadlines
+                        and important notes.
+                    </p>
+                    <span class="feature-link">Track Applications →</span>
+                </a>
+
+                <a href="{{ url_for('dashboard_page') }}" class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Dashboard</h3>
+                    <p>
+                        View an overview of available universities,
+                        programs and saved selections.
+                    </p>
+                    <span class="feature-link">Open Dashboard →</span>
+                </a>
+
+            </div>
+        </section>
+
+        <!-- Closing CTA -->
+        <section class="home-cta">
+            <h2>Ready to Explore Your Options?</h2>
+            <p>
+                Take the next step toward your international education goals.
+            </p>
+            <a href="{{ url_for('programs_page') }}" class="hero-primary">
+                Get Started →
+            </a>
+        </section>
 
     </main>
 
     <!-- Footer -->
-    <footer>
-        <p>Study Abroad Hub | Student Decision Support System</p>
-        <p>Helping students make informed international education decisions.</p>
+    <footer class="home-footer">
+        <div>
+            <strong>✦ Study Abroad Hub</strong>
+            <p>Student Decision Support System</p>
+        </div>
+
+        <p>Helping students make informed education decisions.</p>
     </footer>
 
 </body>
