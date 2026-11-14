@@ -8,7 +8,8 @@ from database import (
     get_programs_for_comparison,
     save_program,
     get_saved_programs,
-    remove_saved_program
+    remove_saved_program,
+    get_dashboard_stats
 )
 
 app = Flask(__name__)
@@ -155,6 +156,18 @@ def remove_saved_program_route(program_id):
     remove_saved_program(program_id)
 
     return redirect(url_for("saved_programs_page"))
+
+
+
+@app.route("/dashboard")
+def dashboard_page():
+
+    stats = get_dashboard_stats()
+
+    return render_template(
+        "dashboard.html",
+        stats=stats
+    )
 
 
 

@@ -409,3 +409,28 @@ def remove_saved_program(program_id):
 
     connection.commit()
     connection.close()
+
+
+
+def get_dashboard_stats():
+    connection = create_connection()
+
+    total_universities = connection.execute(
+        "SELECT COUNT(*) FROM UNIVERSITY"
+    ).fetchone()[0]
+
+    total_programs = connection.execute(
+        "SELECT COUNT(*) FROM PROGRAM"
+    ).fetchone()[0]
+
+    total_saved = connection.execute(
+        "SELECT COUNT(*) FROM SAVED_PROGRAM"
+    ).fetchone()[0]
+
+    connection.close()
+
+    return {
+        "total_universities": total_universities,
+        "total_programs": total_programs,
+        "total_saved": total_saved
+    }
